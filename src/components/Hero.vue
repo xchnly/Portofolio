@@ -3,10 +3,10 @@
     <!-- Particle.js Background -->
     <div id="particles-js" class="absolute inset-0 z-0"></div>
 
-    <!-- Floating 3D Tech Elements -->
-    <div class="tech-sphere animate-float-3d"></div>
-    <div class="tech-cube animate-rotate-3d"></div>
-    <div class="tech-pyramid animate-float-3d-alt"></div>
+    <!-- Animated Floating Shapes (2D) -->
+    <div class="floating-shape circle animate-float-1"></div>
+    <div class="floating-shape triangle animate-float-2"></div>
+    <div class="floating-shape square animate-float-3"></div>
 
     <!-- Holographic Grid -->
     <div class="holographic-grid"></div>
@@ -32,18 +32,22 @@
         <div class="flex flex-wrap justify-center gap-2 mb-10 max-w-xl mx-auto">
           <span v-for="(tag, i) in tags" :key="i" 
                 class="px-4 py-2 rounded-full text-sm font-medium bg-gray-800 text-white shadow-lg animate-tag"
-                :style="`--i:${i}`">
+                :style="`--i:${i}`"
+                @mouseover="bounceTag(i)"
+                @animationend="resetTag(i)">
             {{ tag }}
           </span>
         </div>
         
-        <!-- Holographic Buttons -->
+        <!-- Interactive Buttons -->
         <div class="flex justify-center space-x-4">
-          <button class="holographic-btn primary">
+          <button class="interactive-btn primary" @click="navigateToWork">
             <span class="btn-inner">View My Work</span>
+            <span class="btn-particles"></span>
           </button>
-          <button class="holographic-btn secondary">
+          <button class="interactive-btn secondary" @click="navigateToContact">
             <span class="btn-inner">Contact Me</span>
+            <span class="btn-particles"></span>
           </button>
         </div>
       </div>
@@ -51,7 +55,7 @@
 
     <!-- Scroll Indicator -->
     <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
-      <div class="mouse-scroll"></div>
+      <div class="mouse-scroll" @click="scrollDown"></div>
     </div>
   </section>
 </template>
@@ -67,12 +71,12 @@ export default {
         'Vue.js', 'React', 'Three.js', 
         'WebGL', 'Animations', 'UI/UX',
         'Creative Coding', 'Interactive Design'
-      ]
+      ],
+      activeTag: null
     }
   },
   mounted() {
     this.initParticles()
-    this.init3DElements()
   },
   methods: {
     initParticles() {
@@ -95,9 +99,37 @@ export default {
         }
       })
     },
-    init3DElements() {
-      // This would be implemented with Three.js in a real project
-      console.log("3D elements would be initialized here with Three.js")
+    bounceTag(index) {
+      this.activeTag = index
+    },
+    resetTag(index) {
+      if (this.activeTag === index) {
+        this.activeTag = null
+      }
+    },
+    navigateToWork() {
+      // Implement navigation to work section
+      console.log("Navigating to work section")
+      this.animateButton('primary')
+    },
+    navigateToContact() {
+      // Implement navigation to contact section
+      console.log("Navigating to contact section")
+      this.animateButton('secondary')
+    },
+    scrollDown() {
+      // Implement scroll down functionality
+      console.log("Scrolling down")
+      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })
+    },
+    animateButton(type) {
+      const buttons = document.querySelectorAll(`.interactive-btn.${type}`)
+      buttons.forEach(btn => {
+        btn.classList.add('animate-click')
+        setTimeout(() => {
+          btn.classList.remove('animate-click')
+        }, 1000)
+      })
     }
   }
 }
@@ -112,60 +144,254 @@ export default {
   z-index: 0;
 }
 
-/* 3D Elements (would be replaced with actual Three.js elements) */
-.tech-sphere, .tech-cube, .tech-pyramid {
+/* Floating 2D Shapes */
+.floating-shape {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  background: rgba(99, 102, 241, 0.1);
-  border: 2px solid rgba(99, 102, 241, 0.3);
-  border-radius: 10px;
+  width: 150px;
+  height: 150px;
+  opacity: 0.15;
   z-index: 1;
+  filter: blur(1px);
 }
 
-.tech-sphere {
+.circle {
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.8) 0%, transparent 70%);
+}
+
+.triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background: linear-gradient(45deg, rgba(236, 72, 153, 0.6), transparent);
+}
+
+.square {
+  background: linear-gradient(45deg, rgba(167, 139, 250, 0.6), transparent);
+  transform: rotate(45deg);
+}
+
+/* Floating Animations */
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(20px, -30px) rotate(5deg); }
+  50% { transform: translate(-15px, 20px) rotate(-5deg); }
+  75% { transform: translate(10px, -20px) rotate(3deg); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-25px, 15px) rotate(-8deg); }
+  50% { transform: translate(20px, -15px) rotate(8deg); }
+  75% { transform: translate(-15px, 25px) rotate(-3deg); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(30px, 10px) rotate(10deg); }
+  50% { transform: translate(-20px, -20px) rotate(-10deg); }
+  75% { transform: translate(15px, 15px) rotate(5deg); }
+}
+
+.animate-float-1 {
+  animation: float1 12s ease-in-out infinite;
   top: 20%;
   left: 10%;
-  border-radius: 50%;
-  box-shadow: 0 0 50px rgba(99, 102, 241, 0.2);
 }
 
-.tech-cube {
-  bottom: 20%;
-  right: 10%;
-  box-shadow: 0 0 50px rgba(236, 72, 153, 0.2);
+.animate-float-2 {
+  animation: float2 15s ease-in-out infinite;
+  bottom: 25%;
+  right: 15%;
 }
 
-.tech-pyramid {
+.animate-float-3 {
+  animation: float3 18s ease-in-out infinite;
   top: 50%;
+  left: 70%;
+}
+
+/* Interactive Buttons */
+.interactive-btn {
+  position: relative;
+  padding: 1px;
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.interactive-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.5) 30%,
+    rgba(236, 72, 153, 0.5) 70%,
+    transparent 100%
+  );
+  animation: rotate 3s linear infinite;
+  z-index: 0;
+}
+
+.interactive-btn.primary::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.8) 30%,
+    rgba(167, 139, 250, 0.8) 70%,
+    transparent 100%
+  );
+}
+
+.interactive-btn.secondary::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(236, 72, 153, 0.8) 30%,
+    rgba(244, 114, 182, 0.8) 70%,
+    transparent 100%
+  );
+}
+
+.btn-inner {
+  position: relative;
+  display: block;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.btn-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.interactive-btn:hover .btn-inner {
+  background: rgba(15, 23, 42, 0.9);
+  transform: scale(1.05);
+}
+
+.interactive-btn:hover .btn-particles {
+  opacity: 1;
+}
+
+.interactive-btn:active .btn-inner {
+  transform: scale(0.95);
+}
+
+/* Button Click Animation */
+.animate-click .btn-particles {
+  opacity: 1;
+  animation: particles-explode 0.6s ease-out forwards;
+}
+
+@keyframes particles-explode {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+    background: radial-gradient(circle, rgba(255,255,255,0) 0%, transparent 70%);
+  }
+}
+
+/* Mouse Scroll Indicator */
+.mouse-scroll {
+  width: 24px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.mouse-scroll:hover {
+  transform: translateY(5px) scale(1.1);
+}
+
+.mouse-scroll::before {
+  content: '';
+  position: absolute;
+  top: 6px;
   left: 50%;
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  width: 4px;
+  height: 8px;
+  background: white;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  animation: scroll-wheel 2s infinite;
 }
 
-/* Animations */
-@keyframes float3d {
-  0%, 100% { transform: translateY(0) rotateX(0) rotateY(0); }
-  50% { transform: translateY(-20px) rotateX(10deg) rotateY(10deg); }
+@keyframes scroll-wheel {
+  0% { top: 6px; opacity: 1; }
+  100% { top: 18px; opacity: 0; }
 }
 
-@keyframes rotate3d {
-  0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
-  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+/* Animated Tags */
+.animate-tag {
+  animation: tag-float 3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.1s);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.animate-float-3d {
-  animation: float3d 8s ease-in-out infinite;
+@keyframes tag-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
 }
 
-.animate-rotate-3d {
-  animation: rotate3d 20s linear infinite;
+/* Holographic Grid */
+.holographic-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-move 20s linear infinite;
+  z-index: 0;
 }
 
-.animate-float-3d-alt {
-  animation: float3d 10s ease-in-out infinite reverse;
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
 }
 
-/* Glitch Effect */
+/* Rotate animation for buttons */
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Glitch Effect (unchanged) */
 .glitch {
   position: relative;
 }
@@ -199,126 +425,5 @@ export default {
   60% { transform: translate(3px, 3px); }
   80% { transform: translate(3px, -3px); }
   100% { transform: translate(0); }
-}
-
-/* Holographic Buttons */
-.holographic-btn {
-  position: relative;
-  padding: 1px;
-  border-radius: 9999px;
-  overflow: hidden;
-  transition: all 0.3s;
-}
-
-.holographic-btn::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    rgba(99, 102, 241, 0.5) 30%,
-    rgba(236, 72, 153, 0.5) 70%,
-    transparent 100%
-  );
-  animation: rotate 3s linear infinite;
-  z-index: 0;
-}
-
-.holographic-btn.primary::before {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    rgba(99, 102, 241, 0.8) 30%,
-    rgba(167, 139, 250, 0.8) 70%,
-    transparent 100%
-  );
-}
-
-.holographic-btn.secondary::before {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    rgba(236, 72, 153, 0.8) 30%,
-    rgba(244, 114, 182, 0.8) 70%,
-    transparent 100%
-  );
-}
-
-.btn-inner {
-  position: relative;
-  display: block;
-  padding: 12px 24px;
-  border-radius: 9999px;
-  background: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(10px);
-  z-index: 1;
-  transition: all 0.3s;
-}
-
-.holographic-btn:hover .btn-inner {
-  background: rgba(15, 23, 42, 0.9);
-  transform: scale(1.05);
-}
-
-/* Mouse Scroll Indicator */
-.mouse-scroll {
-  width: 24px;
-  height: 40px;
-  border: 2px solid white;
-  border-radius: 12px;
-  position: relative;
-}
-
-.mouse-scroll::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  width: 4px;
-  height: 8px;
-  background: white;
-  border-radius: 2px;
-  transform: translateX(-50%);
-  animation: scroll-wheel 2s infinite;
-}
-
-@keyframes scroll-wheel {
-  0% { top: 6px; opacity: 1; }
-  100% { top: 18px; opacity: 0; }
-}
-
-/* Animated Tags */
-.animate-tag {
-  animation: tag-float 3s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.1s);
-}
-
-@keyframes tag-float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(2deg); }
-}
-
-/* Holographic Grid */
-.holographic-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: grid-move 20s linear infinite;
-  z-index: 0;
-}
-
-@keyframes grid-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 40px 40px; }
 }
 </style>

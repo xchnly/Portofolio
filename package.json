@@ -12,11 +12,15 @@
     "aos": "^2.3.4",
     "gsap": "^3.13.0",
     "particles.js": "^2.0.0",
+    "simplex-noise": "^4.0.3",
     "three": "^0.176.0",
     "three.js": "^0.77.0",
-    "vue": "^3.5.13"
+    "troisjs": "^0.3.4",
+    "vue": "^3.5.13",
+    "vue-3d-model": "^1.4.1"
   },
   "devDependencies": {
+    "@types/three": "^0.176.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",

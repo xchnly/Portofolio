@@ -36,19 +36,6 @@
             </li>
           </ul>
         </nav>
-
-        <!-- Holographic Menu Button -->
-        <button 
-          class="md:hidden holographic-menu"
-          @click="toggleMobileMenu"
-          :class="{'open': mobileMenuOpen}"
-          aria-label="Menu"
-        >
-          <span class="menu-line"></span>
-          <span class="menu-line"></span>
-          <span class="menu-line"></span>
-          <span class="menu-hologram" :class="{'active': mobileMenuOpen}"></span>
-        </button>
       </div>
     </div>
 
@@ -92,7 +79,7 @@ export default {
       navItems: [
         { id: 'home', name: 'HOME' },
         { id: 'about', name: 'ABOUT' },
-        { id: 'experience', name: 'EXPERIENCE' },
+        { id: 'skills', name: 'SKILLS' },
         { id: 'projects', name: 'PROJECTS' },
         { id: 'contact', name: 'CONTACT' }
       ]
