@@ -41,14 +41,23 @@
         
         <!-- Interactive Buttons -->
         <div class="flex justify-center space-x-4">
-          <button class="interactive-btn primary" @click="navigateToWork">
+          <router-link 
+            to="#projects" 
+            class="interactive-btn primary"
+            @click.native="scrollTo('projects')"
+          >
             <span class="btn-inner">View My Work</span>
             <span class="btn-particles"></span>
-          </button>
-          <button class="interactive-btn secondary" @click="navigateToContact">
+          </router-link>
+
+          <router-link 
+            to="#contact" 
+            class="interactive-btn secondary"
+            @click.native="scrollTo('contact')"
+          >
             <span class="btn-inner">Contact Me</span>
             <span class="btn-particles"></span>
-          </button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -98,6 +107,22 @@ export default {
           }
         }
       })
+    },
+    scrollTo(target) {
+      const element = document.getElementById(target);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      
+      // Untuk handle URL hash
+      if (history.pushState) {
+        history.pushState(null, null, `#${target}`);
+      } else {
+        window.location.hash = `#${target}`;
+      }
     },
     bounceTag(index) {
       this.activeTag = index
