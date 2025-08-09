@@ -54,45 +54,27 @@
           <ul class="space-y-3">
             <li class="flex items-start">
               <i class="fas fa-envelope text-indigo-400 mt-1 mr-3"></i>
-              <span class="footer-text">your.email@example.com</span>
+              <span class="footer-text">hendryhuang70@gmail.com</span>
             </li>
             <li class="flex items-start">
               <i class="fas fa-phone text-indigo-400 mt-1 mr-3"></i>
-              <span class="footer-text">+1 (123) 456-7890</span>
+              <span class="footer-text">+62 821 5096 2909</span>
             </li>
             <li class="flex items-start">
               <i class="fas fa-map-marker-alt text-indigo-400 mt-1 mr-3"></i>
-              <span class="footer-text">San Francisco, CA</span>
+              <span class="footer-text">Batam, Indonesia</span>
             </li>
           </ul>
-        </div>
-
-        <!-- Footer Column 4 -->
-        <div class="footer-col">
-          <h3 class="footer-title">Newsletter</h3>
-          <p class="footer-text mb-4">
-            Subscribe to get updates on my latest projects.
-          </p>
-          <div class="newsletter-form">
-            <input 
-              type="email" 
-              placeholder="Your email" 
-              class="newsletter-input"
-            >
-            <button class="newsletter-button">
-              <i class="fas fa-paper-plane"></i>
-            </button>
-          </div>
         </div>
       </div>
 
       <!-- Footer Bottom -->
       <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
         <p class="footer-text">
-          &copy; {{ new Date().getFullYear() }} Your Name. All rights reserved.
+          &copy; {{ new Date().getFullYear() }} Hendry. All rights reserved.
         </p>
         
-        <div class="flex space-x-6 mt-4 md:mt-0">
+        <!-- <div class="flex space-x-6 mt-4 md:mt-0">
           <a 
             href="#" 
             class="footer-link"
@@ -105,7 +87,7 @@
           >
             Terms of Service
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -128,9 +110,9 @@ export default {
       socialHoverStates: [],
       socialLinks: [
         { name: 'GitHub', icon: 'fab fa-github', url: 'https://github.com' },
-        { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://linkedin.com' },
-        { name: 'Twitter', icon: 'fab fa-twitter', url: 'https://twitter.com' },
-        { name: 'Dribbble', icon: 'fab fa-dribbble', url: 'https://dribbble.com' }
+        // { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://linkedin.com' },
+        { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://twitter.com' },
+        // { name: 'Dribbble', icon: 'fab fa-dribbble', url: 'https://dribbble.com' }
       ],
       quickLinks: [
         { id: 'home', name: 'Home' },

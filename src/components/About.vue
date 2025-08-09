@@ -4,16 +4,13 @@
     <div class="absolute inset-0 overflow-hidden opacity-10">
       <div class="circuit-pattern"></div>
       <div class="floating-shapes">
-        <div v-for="(shape, index) in floatingShapes" :key="index" 
-             class="shape" 
-             :class="shape.type"
-             :style="{
-               left: `${shape.left}%`,
-               top: `${shape.top}%`,
-               width: `${shape.size}px`,
-               height: `${shape.size}px`,
-               animationDelay: `${index * 0.5}s`
-             }"></div>
+        <div v-for="(shape, index) in floatingShapes" :key="index" class="shape" :class="shape.type" :style="{
+          left: `${shape.left}%`,
+          top: `${shape.top}%`,
+          width: `${shape.size}px`,
+          height: `${shape.size}px`,
+          animationDelay: `${index * 0.5}s`
+        }"></div>
       </div>
     </div>
 
@@ -26,26 +23,22 @@
       </div>
 
       <div class="flex flex-col lg:flex-row items-center gap-12">
-        <!-- 3D Profile Card -->
-        <div class="profile-card-container lg:w-1/3">
+        <!-- 3D Profile Card - Responsive -->
+        <div class="profile-card-container w-full max-w-xs mx-auto md:max-w-md lg:w-1/3">
           <div class="profile-card">
             <div class="profile-card-inner">
               <div class="profile-image">
-                <img src=""
-                     alt="Profile" 
-                     class="rounded-full border-4 border-indigo-500">
+                <img src="/profil.jpg" alt="Profile"
+                  class="w-24 h-24 md:w-16 md:h-16 lg:w-36 lg:h-36 rounded-full border-4 grayscale border-indigo-500">
               </div>
               <div class="profile-glow"></div>
               <div class="profile-tech-icons">
-                <i v-for="(icon, index) in techIcons" 
-                   :key="index" 
-                   :class="icon"
-                   class="text-2xl absolute"
-                   :style="{
-                     left: `${15 + Math.random() * 70}%`,
-                     top: `${15 + Math.random() * 70}%`,
-                     animationDelay: `${index * 0.3}s`
-                   }"></i>
+                <i v-for="(icon, index) in techIcons" :key="index" :class="icon" class="text-xl md:text-2xl absolute"
+                  :style="{
+                    left: `${20 + Math.random() * 85}%`,
+                    top: `${20 + Math.random() * 85}%`,
+                    animationDelay: `${index * 0.2}s`
+                  }"></i>
               </div>
             </div>
           </div>
@@ -56,25 +49,22 @@
           <h3 class="text-2xl font-semibold mb-6">
             <span class="highlight-text">Who am I?</span>
           </h3>
-          
+
           <div class="space-y-6">
             <p class="text-gray-300 leading-relaxed animate-text">
-              I'm a passionate frontend developer with 5+ years of experience creating modern web applications. 
-              I specialize in Vue.js and React ecosystems, with a strong focus on creating intuitive user experiences 
-              and pixel-perfect interfaces.
+              Hello, my name is Hendry, and I am currently pursuing a degree in Computer Science, in my 5th semester.
+              Alongside my studies, I have been working in a dual role as an IT Support and Planner & Material
+              Control (PMC) since August 2023.
             </p>
-            
+
             <p class="text-gray-300 leading-relaxed animate-text animate-delay-100">
-              My approach combines technical expertise with creative problem-solving to deliver solutions that are 
-              both functional and visually stunning. I believe in writing clean, maintainable code and staying 
-              on top of industry trends.
+              With almost two years of experience, I have honed my technical skills and gained valuable knowledge in
+              managing materials and planning projects. This hands-on experience has allowed me to bridge the gap
+              between theory and practice, preparing me for a successful career in the tech industry.
             </p>
-            
+
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-              <div v-for="(stat, index) in stats" 
-                   :key="index"
-                   class="stat-card"
-                   :style="`--delay: ${index * 0.1}s`">
+              <div v-for="(stat, index) in stats" :key="index" class="stat-card" :style="`--delay: ${index * 0.1}s`">
                 <div class="stat-number">{{ stat.number }}</div>
                 <div class="stat-label">{{ stat.label }}</div>
               </div>
@@ -125,7 +115,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
   background-size: 50px 50px;
@@ -156,10 +146,23 @@ export default {
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(10px, -15px) rotate(5deg); }
-  50% { transform: translate(-5px, 10px) rotate(-5deg); }
-  75% { transform: translate(15px, 5px) rotate(10deg); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(10px, -15px) rotate(5deg);
+  }
+
+  50% {
+    transform: translate(-5px, 10px) rotate(-5deg);
+  }
+
+  75% {
+    transform: translate(15px, 5px) rotate(10deg);
+  }
 }
 
 /* Title Effects */
@@ -182,7 +185,9 @@ export default {
 }
 
 @keyframes text-reveal {
-  to { width: 100%; }
+  to {
+    width: 100%;
+  }
 }
 
 .highlight-text {
@@ -207,7 +212,9 @@ export default {
 }
 
 @keyframes underline-grow {
-  to { transform: scaleX(1); }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* 3D Profile Card */
@@ -268,15 +275,37 @@ export default {
 }
 
 @keyframes tech-icon-float {
-  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-  25% { transform: translate(10px, -15px) rotate(10deg) scale(1.1); }
-  50% { transform: translate(-15px, 10px) rotate(-10deg) scale(0.9); }
-  75% { transform: translate(15px, 5px) rotate(5deg) scale(1.05); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: translate(10px, -15px) rotate(10deg) scale(1.1);
+  }
+
+  50% {
+    transform: translate(-15px, 10px) rotate(-10deg) scale(0.9);
+  }
+
+  75% {
+    transform: translate(15px, 5px) rotate(5deg) scale(1.05);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(1.1); }
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
 }
 
 /* Stat Cards */
@@ -309,7 +338,10 @@ export default {
 }
 
 @keyframes stat-appear {
-  to { transform: translateY(0); opacity: 1; }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Text Animation */
@@ -324,7 +356,10 @@ export default {
 }
 
 @keyframes text-appear {
-  to { opacity: 1; transform: translateY(0); }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hover Effects */

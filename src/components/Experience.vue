@@ -69,22 +69,22 @@ export default {
           company: "PT CHAMPION MATTRESS INDONESIA MANUFACTURING",
           period: "2023 - Present",
           descriptions: [
-            "Led migration from legacy AngularJS to modern Vue 3 architecture",
-            "Implemented micro-frontend architecture improving performance by 40%",
-            "Mentored junior developers and conducted technical interviews"
+            "I am responsible for creating and managing production schedules, coordinating with the production department to ensure timely and efficient manufacturing processes.",
+            "I lead a small team that focuses on providing external box labels and shipping marks, ensuring proper identification and packaging for products.",
+            "In my IT support role, I develop applications aimed at enhancing work efficiency, automating processes, and improving overall performance across departments."
           ],
-          technologies: ["Vue 3", "TypeScript", "Micro-frontends", "GraphQL"]
+          technologies: ["ERP", "Python", "Microsoft Office", "Vue Js"]
         },
         {
           position: "Tata Usaha & Administrasi",
           company: "YAYASAN HOSANA TEBAS",
           period: "2021 - 2023",
           descriptions: [
-            "Developed responsive web applications using React ecosystem",
-            "Collaborated with UX team to implement design system",
-            "Optimized web performance achieving 95+ Lighthouse scores"
+            "I am responsible for managing and organizing the school’s administrative tasks, ensuring that all processes run smoothly.",
+            "I oversee the management of Belajar ID accounts for students and staff, ensuring all accounts are up-to-date and functioning properly.",
+            "I handle the creation of certificates and other official documents required by the school, ensuring they are accurate and processed in a timely manner."
           ],
-          technologies: ["React", "Redux", "Styled Components", "Jest"]
+          technologies: ["Microsoft Office", "Photoshop", "Local Area Network"]
         }
       ]
     }

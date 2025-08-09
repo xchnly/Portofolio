@@ -77,8 +77,8 @@ export default {
   data() {
     return {
       tags: [
-        'Vue.js', 'React', 'Three.js', 
-        'WebGL', 'Animations', 'UI/UX',
+        'Vue.js', 'Tailwind Css', 'Python', 
+        'Animations', 'UI/UX',
         'Creative Coding', 'Interactive Design'
       ],
       activeTag: null

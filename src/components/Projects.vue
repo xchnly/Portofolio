@@ -86,52 +86,100 @@ export default {
       projects: [
         {
           id: 1,
-          title: "SwiftUI Weather App",
-          description: "Beautiful weather application with animated transitions and live data",
-          technologies: ["SwiftUI", "Combine", "Core Location"],
-          imageUrl: "https://images.unsplash.com/photo-1558470598-a5dda9640f68?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+          title: "PETANI | IoT and Automation Plant Waterer",
+          description: "IoT based automatic watering system and automation using ESP32 and Blynk",
+          technologies: ["ESP32", "Blynk", "C++"],
+          imageUrl: "",
           link: "#"
         },
         {
           id: 2,
-          title: "Kotlin Mobile Banking",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Kotlin", "Jetpack Compose", "Room DB"],
-          imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+          title: "SNAFH-R1 | Human Tracking Arm Robot",
+          description: "Human tracking arm robot with machine learning and robotic system",
+          technologies: ["Python", "Machine Learning", "Arduino"],
+          imageUrl: "",
           link: "#"
         },
         {
           id: 3,
-          title: "Flutter Social Network",
-          description: "Cross-platform social media application",
-          technologies: ["Flutter", "Firebase", "Dart"],
-          imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+          title: "Label Master V2.0",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Python"],
+          imageUrl: "",
           link: "#"
         },
         {
           id: 4,
-          title: "React Native Task Manager",
-          description: "Productivity app with collaborative features",
-          technologies: ["React Native", "GraphQL", "Node.js"],
-          imageUrl: "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+          title: "Rename Master",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Python"],
+          imageUrl: "",
           link: "#"
         },
         {
           id: 5,
-          title: "Solidity Smart Contracts",
-          description: "Blockchain-based decentralized application",
-          technologies: ["Solidity", "Ethereum", "Web3.js"],
-          imageUrl: "https://images.unsplash.com/photo-1620345802265-09f2e0c0b6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+          title: "GroupIN Folders",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Python"],
+          imageUrl: "",
           link: "#"
         },
         {
           id: 6,
-          title: "TensorFlow Image Classifier",
-          description: "Machine learning model for image recognition",
-          technologies: ["Python", "TensorFlow", "Keras"],
-          imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+          title: "PKWT Maker",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Python"],
+          imageUrl: "",
           link: "#"
-        }
+        },
+        {
+          id: 7,
+          title: "Cloth Label Maker",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Python"],
+          imageUrl: "",
+          link: "#"
+        },
+        {
+          id: 8,
+          title: "FrontEnd MidnightPull",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Vue Js", "Tailwind Css"],
+          imageUrl: "",
+          link: "#"
+        },
+        {
+          id: 9,
+          title: "Full Stack Novaxin新星系统",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Laravel", "Talwind Css", "MySQL"],
+          imageUrl: "",
+          link: "#"
+        },
+        {
+          id: 10,
+          title: "FrontEnd Website HIMATIF",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Vue Js", "Tailwind Css"],
+          imageUrl: "",
+          link: "#"
+        },
+        {
+          id: 11,
+          title: "STACKO | Your Logistic Solutions",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Python", "3D-Bin-Packing", "Next Js", "MongoDB"],
+          imageUrl: "",
+          link: "#"
+        },
+        {
+          id: 12,
+          title: "NOVARA | CMIM's PMC SYSTEM",
+          description: "Secure banking app with biometric authentication",
+          technologies: ["Laravel", "Vite+React", "Tailwind Css", "PostgreeSQL"],
+          imageUrl: "",
+          link: "#"
+        },
       ],
       hoverStates: []
     }

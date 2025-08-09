@@ -3,7 +3,24 @@
     <div class="skill-card">
       <div class="skill-card-inner">
         <div class="skill-icon" :style="`--skill-color: ${skill.color}`">
-          <img :src="`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.icon}/${skill.icon}-original.svg`" 
+          <!-- Devicon -->
+          <img v-if="skill.iconType === 'devicon'" 
+               :src="`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.icon}/${skill.icon}-original.svg`" 
+               :alt="skill.name">
+          
+          <!-- Font Awesome -->
+          <i v-else-if="skill.iconType === 'fontawesome'" 
+             :class="skill.icon" 
+             aria-hidden="true"></i>
+          
+          <!-- Twemoji -->
+          <span v-else-if="skill.iconType === 'twemoji'" 
+                class="twemoji-icon" 
+                :data-emoji="skill.icon"></span>
+          
+          <!-- Custom SVG/Image URL -->
+          <img v-else-if="skill.iconType === 'custom'"
+               :src="skill.icon"
                :alt="skill.name">
         </div>
         <h3 class="skill-name">{{ skill.name }}</h3>
@@ -19,8 +36,29 @@
 <script>
 export default {
   props: {
-    skill: Object,
-    index: Number
+    skill: {
+      type: Object,
+      required: true,
+      validator: (skill) => {
+        return ['name', 'level', 'color'].every(key => key in skill)
+      }
+    },
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
+  mounted() {
+    // Render Twemoji setelah komponen dimount
+    if (this.skill.iconType === 'twemoji' && window.twemoji) {
+      const twemojiIcon = this.$el.querySelector('.twemoji-icon')
+      if (twemojiIcon) {
+        twemoji.parse(twemojiIcon, {
+          folder: 'svg',
+          ext: '.svg'
+        })
+      }
+    }
   }
 }
 </script>
@@ -81,11 +119,30 @@ export default {
   box-shadow: 0 0 20px rgba(var(--skill-color), 0.4);
 }
 
-.skill-icon img {
+/* Style untuk semua jenis ikon */
+.skill-icon img,
+.skill-icon i,
+.skill-icon span {
   width: 60%;
   height: 60%;
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(var(--skill-color), 0.5));
+}
+
+/* Khusus Font Awesome */
+.skill-icon i {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--skill-color);
+}
+
+/* Khusus Twemoji */
+.twemoji-icon {
+  font-size: 2rem;
+  display: inline-block;
+  line-height: 1;
 }
 
 .skill-name {

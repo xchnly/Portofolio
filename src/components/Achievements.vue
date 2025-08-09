@@ -7,11 +7,8 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div 
-          v-for="(achievement, index) in achievements" 
-          :key="index"
-          class="bg-gray-700 p-6 rounded-lg hover:shadow-lg transition duration-300 hover:transform hover:scale-105"
-        >
+        <div v-for="(achievement, index) in achievements" :key="index"
+          class="bg-gray-700 p-6 rounded-lg hover:shadow-lg transition duration-300 hover:transform hover:scale-105">
           <div class="flex items-center mb-4">
             <div class="p-3 bg-indigo-500 bg-opacity-20 rounded-full mr-4">
               <i :class="achievement.icon" class="text-indigo-400 text-xl"></i>
@@ -34,47 +31,12 @@ export default {
     return {
       achievements: [
         {
-          title: "Best Web Developer Award",
-          description: "Recognized as top developer at the National Tech Conference 2023 for innovative Vue.js applications.",
-          date: "May 2023",
-          organization: "Tech Awards Foundation",
+          title: "Outstanding Employee 2024",
+          description: "Recognized for exceptional performance, dedication, and contributions throughout the year, demonstrating outstanding leadership, teamwork, and a commitment to excellence in all responsibilities.",
+          date: "December 2024",
+          organization: "PT Champion Mattress Indonesia Manufacturing",
           icon: "fas fa-trophy"
         },
-        {
-          title: "Hackathon Winner",
-          description: "First place in the regional coding competition with a real-time collaboration tool built in 48 hours.",
-          date: "November 2022",
-          organization: "CodeFest International",
-          icon: "fas fa-medal"
-        },
-        {
-          title: "Open Source Contributor",
-          description: "Major contributor to Vue.js ecosystem with 500+ stars on GitHub repositories.",
-          date: "Ongoing",
-          organization: "GitHub Community",
-          icon: "fas fa-code-branch"
-        },
-        {
-          title: "Certified Developer",
-          description: "Earned professional certification in Advanced JavaScript and Frontend Architecture.",
-          date: "August 2022",
-          organization: "JavaScript Institute",
-          icon: "fas fa-certificate"
-        },
-        {
-          title: "Speaker at DevConf",
-          description: "Invited speaker at international developer conference about modern web technologies.",
-          date: "March 2022",
-          organization: "DevConf Global",
-          icon: "fas fa-microphone"
-        },
-        {
-          title: "Published Author",
-          description: "Technical article featured in 'Web Developer Monthly' magazine with 50k+ reads.",
-          date: "January 2022",
-          organization: "Web Dev Publications",
-          icon: "fas fa-pen-fancy"
-        }
       ]
     }
   }
