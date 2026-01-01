@@ -37,6 +37,13 @@ export default {
           organization: "PT Champion Mattress Indonesia Manufacturing",
           icon: "fas fa-trophy"
         },
+        {
+          title: "Outstanding Employee Mid Year 2025",
+          description: "Recognized for exceptional performance, dedication, and contributions throughout the year, demonstrating outstanding leadership, teamwork, and a commitment to excellence in all responsibilities.",
+          date: "September 2025",
+          organization: "PT Champion Mattress Indonesia Manufacturing",
+          icon: "fas fa-trophy"
+        },
       ]
     }
   }

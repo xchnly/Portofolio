@@ -52,15 +52,17 @@
 
           <div class="space-y-6">
             <p class="text-gray-300 leading-relaxed animate-text">
-              Hello, my name is Hendry, and I am currently pursuing a degree in Computer Science, in my 5th semester.
+              Hello, my name is Hendry, and I am currently pursuing a degree in Computer Science, in my 6th semester.
               Alongside my studies, I have been working in a dual role as an IT Support and Planner & Material
-              Control (PMC) since August 2023.
+              Control (PMC) since August 2023. Now in September 2025, I have taken on a new challenge as a Customer Service
+              & Operation staff while continuing my IT Support responsibilities at PT SITC JIAXIANG LOGISTICS INDONESIA.
             </p>
 
             <p class="text-gray-300 leading-relaxed animate-text animate-delay-100">
-              With almost two years of experience, I have honed my technical skills and gained valuable knowledge in
+              With almost 3 years of experience, I have honed my technical skills and gained valuable knowledge in
               managing materials and planning projects. This hands-on experience has allowed me to bridge the gap
-              between theory and practice, preparing me for a successful career in the tech industry.
+              between theory and practice, preparing me for a successful career in the tech industry. I am passionate
+              about leveraging technology to solve real-world problems and contribute to organizational success.
             </p>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
@@ -97,7 +99,7 @@ export default {
         'fab fa-npm'
       ],
       stats: [
-        { number: '2+', label: 'Years Experience' },
+        { number: '3+', label: 'Years Experience' },
         { number: '20+', label: 'Projects Completed' },
         { number: '90%', label: 'Client Satisfaction' },
         { number: '∞', label: 'Cups of Coffee' }

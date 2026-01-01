@@ -64,7 +64,7 @@ export default {
           degree: "Bachelor of Informatics Engineering",
           institution: "Universitas Universal Batam",
           period: "2023 - Present",
-          gpa: "3.85 / 4.0",
+          gpa: "3.86 / 4.0",
         },
         {
           degree: "Vocational High School of Computer and Network Engineering",

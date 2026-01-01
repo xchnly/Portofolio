@@ -83,7 +83,7 @@ export default {
         },
         { 
           name: 'React Native', 
-          progress: 12, 
+          progress: 82, 
           image: 'https://cdn.worldvectorlogo.com/logos/react-2.svg',
           hover: false
         },
@@ -113,13 +113,13 @@ export default {
         },
         { 
           name: 'TensorFlow', 
-          progress: 0, 
+          progress: 76, 
           image: 'https://cdn.worldvectorlogo.com/logos/tensorflow-2.svg',
           hover: false
         },
         { 
           name: 'PyTorch', 
-          progress: 0, 
+          progress: 78, 
           image: 'https://cdn.worldvectorlogo.com/logos/pytorch-2.svg',
           hover: false
         }

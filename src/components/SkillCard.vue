@@ -1,33 +1,50 @@
 <template>
-  <div class="skill-card-container group" :style="`--delay: ${index * 0.1}s`">
+  <div class="skill-card-container" :style="{ '--delay': `${index * 0.1}s` }">
     <div class="skill-card">
       <div class="skill-card-inner">
-        <div class="skill-icon" :style="`--skill-color: ${skill.color}`">
-          <!-- Devicon -->
-          <img v-if="skill.iconType === 'devicon'" 
-               :src="`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.icon}/${skill.icon}-original.svg`" 
-               :alt="skill.name">
-          
-          <!-- Font Awesome -->
-          <i v-else-if="skill.iconType === 'fontawesome'" 
-             :class="skill.icon" 
-             aria-hidden="true"></i>
-          
-          <!-- Twemoji -->
-          <span v-else-if="skill.iconType === 'twemoji'" 
-                class="twemoji-icon" 
-                :data-emoji="skill.icon"></span>
-          
-          <!-- Custom SVG/Image URL -->
-          <img v-else-if="skill.iconType === 'custom'"
-               :src="skill.icon"
-               :alt="skill.name">
+        <div class="skill-icon" :style="{ '--skill-color': skill.color }">
+
+          <!-- DEVICON -->
+          <img
+            v-if="skill.iconType === 'devicon'"
+            :src="deviconUrl"
+            :alt="skill.name"
+            @error="iconError = true"
+          />
+
+          <!-- FONT AWESOME -->
+          <i
+            v-else-if="skill.iconType === 'fontawesome'"
+            :class="skill.icon"
+          />
+
+          <!-- TWEMOJI -->
+          <span
+            v-else-if="skill.iconType === 'twemoji'"
+            class="twemoji-icon"
+          >
+            {{ skill.icon }}
+          </span>
+
+          <!-- FALLBACK -->
+          <span v-if="iconError" class="fallback-icon">
+            {{ skill.name[0] }}
+          </span>
+
         </div>
+
         <h3 class="skill-name">{{ skill.name }}</h3>
+
         <div class="skill-level">
-          <div class="level-bar" :style="`width: ${skill.level}%; background: ${skill.color}`"></div>
+          <div
+            class="level-bar"
+            :style="{ width: skill.level + '%', background: skill.color }"
+          />
         </div>
-        <div class="skill-percent" :style="`color: ${skill.color}`">{{ skill.level }}%</div>
+
+        <div class="skill-percent" :style="{ color: skill.color }">
+          {{ skill.level }}%
+        </div>
       </div>
     </div>
   </div>
@@ -36,28 +53,22 @@
 <script>
 export default {
   props: {
-    skill: {
-      type: Object,
-      required: true,
-      validator: (skill) => {
-        return ['name', 'level', 'color'].every(key => key in skill)
-      }
-    },
-    index: {
-      type: Number,
-      default: 0
+    skill: Object,
+    index: Number
+  },
+  data() {
+    return {
+      iconError: false
+    }
+  },
+  computed: {
+    deviconUrl() {
+      return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${this.skill.icon}/${this.skill.iconFile}`
     }
   },
   mounted() {
-    // Render Twemoji setelah komponen dimount
     if (this.skill.iconType === 'twemoji' && window.twemoji) {
-      const twemojiIcon = this.$el.querySelector('.twemoji-icon')
-      if (twemojiIcon) {
-        twemoji.parse(twemojiIcon, {
-          folder: 'svg',
-          ext: '.svg'
-        })
-      }
+      window.twemoji.parse(this.$el)
     }
   }
 }

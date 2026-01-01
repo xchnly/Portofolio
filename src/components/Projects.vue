@@ -30,7 +30,7 @@
             <!-- Project Image with Glow Effect -->
             <div class="image-container">
               <img 
-                :src="project.imageUrl" 
+                :src="project.imageUrl || getPlaceholderImage(project)" 
                 :alt="project.title"
                 class="project-image"
               >
@@ -86,99 +86,138 @@ export default {
       projects: [
         {
           id: 1,
+          title: "SITC Batam Portal Website",
+          description: "Export Schedule, Import Document Tracking, and Empty Container Pickup System for SITC Batam Indonesia",
+          technologies: ["Next.Js", "Tailwind Css", "Firebase"],
+          imageUrl: "",
+          link: "sitc-batam.com",
+          category: "web"
+        },
+        {
+          id: 2,
+          title: "Finora | Financial Management App",
+          description: "Financial management app to track expenses and income",
+          technologies: ["Next.Js", "Tailwind Css", "Firebase"],
+          imageUrl: "",
+          link: "Finora-wheat.vercel.app",
+          category: "web"
+        },
+        {
+          id: 3,
+          title: "AsmaraPOS | Point of Sales Application",
+          description: "RM Nasi Padang Asmara's Point of Sales Application to manage sales and inventory",
+          technologies: ["ESP32", "Blynk", "C++"],
+          imageUrl: "",
+          link: "https://asmara-pos.vercel.app/",
+          category: "iot"
+        },
+        {
+          id: 4,
           title: "PETANI | IoT and Automation Plant Waterer",
           description: "IoT based automatic watering system and automation using ESP32 and Blynk",
           technologies: ["ESP32", "Blynk", "C++"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "iot"
         },
         {
-          id: 2,
+          id: 5,
           title: "SNAFH-R1 | Human Tracking Arm Robot",
           description: "Human tracking arm robot with machine learning and robotic system",
           technologies: ["Python", "Machine Learning", "Arduino"],
           imageUrl: "",
-          link: "#"
-        },
-        {
-          id: 3,
-          title: "Label Master V2.0",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#"
-        },
-        {
-          id: 4,
-          title: "Rename Master",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#"
-        },
-        {
-          id: 5,
-          title: "GroupIN Folders",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "iot"
         },
         {
           id: 6,
-          title: "PKWT Maker",
-          description: "Secure banking app with biometric authentication",
+          title: "Label Master V2.0",
+          description: "Manufacturing desktop application for creating box labels",
           technologies: ["Python"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "desktop"
         },
         {
           id: 7,
-          title: "Cloth Label Maker",
-          description: "Secure banking app with biometric authentication",
+          title: "Rename Master",
+          description: "Office desktop application for bulk file renaming",
           technologies: ["Python"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "desktop"
         },
         {
           id: 8,
-          title: "FrontEnd MidnightPull",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Vue Js", "Tailwind Css"],
+          title: "GroupIN Folders",
+          description: "Office desktop application for bulk folder creation",
+          technologies: ["Python"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "desktop"
         },
         {
           id: 9,
-          title: "Full Stack Novaxin新星系统",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Laravel", "Talwind Css", "MySQL"],
+          title: "PKWT Maker",
+          description: "Office desktop application for creating employment contracts",
+          technologies: ["Python"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "desktop"
         },
         {
           id: 10,
-          title: "FrontEnd Website HIMATIF",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Vue Js", "Tailwind Css"],
+          title: "Cloth Label Maker",
+          description: "Manufacturing desktop application for creating cloth labels",
+          technologies: ["Python"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "desktop"
         },
         {
           id: 11,
-          title: "STACKO | Your Logistic Solutions",
-          description: "Secure banking app with biometric authentication",
-          technologies: ["Python", "3D-Bin-Packing", "Next Js", "MongoDB"],
+          title: "FrontEnd MidnightPull",
+          description: "Movie review website frontend design",
+          technologies: ["Vue Js", "Tailwind Css"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "web"
         },
         {
           id: 12,
-          title: "NOVARA | CMIM's PMC SYSTEM",
-          description: "Secure banking app with biometric authentication",
+          title: "Full Stack Novaxin新星系统 (Ongoing)",
+          description: "Production management information system for CMIM",
+          technologies: ["Laravel", "Talwind Css", "MySQL"],
+          imageUrl: "",
+          link: "#",
+          category: "web"
+        },
+        {
+          id: 13,
+          title: "FrontEnd Website HIMATIF",
+          description: "HIMAATIF Uvers website frontend design",
+          technologies: ["Vue Js", "Tailwind Css"],
+          imageUrl: "",
+          link: "#",
+          category: "web"
+        },
+        {
+          id: 14,
+          title: "STACKO | Your Logistic Solutions (Ongoing)",
+          description: "3D Bin Packing and Logistic Management System",
+          technologies: ["Python", "3D-Bin-Packing", "Next Js", "MongoDB"],
+          imageUrl: "",
+          link: "#",
+          category: "web"
+        },
+        {
+          id: 15,
+          title: "NOVARA | CMIM's PMC SYSTEM (Ongoing)",
+          description: "Planner Material Control Information Management System for CMIM",
           technologies: ["Laravel", "Vite+React", "Tailwind Css", "PostgreeSQL"],
           imageUrl: "",
-          link: "#"
+          link: "#",
+          category: "web"
         },
       ],
       hoverStates: []
@@ -191,11 +230,71 @@ export default {
     resetProject(index) {
       this.hoverStates[index] = false
     },
-    getRandomPosition() {
-      return {
-        x: Math.random() * 80 + 10,
-        y: Math.random() * 80 + 10
+    getPlaceholderImage(project) {
+      // Warna berbeda berdasarkan kategori proyek
+      const colors = {
+        web: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+        iot: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+        ai: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+        desktop: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        default: 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)'
       }
+
+      const color = colors[project.category] || colors.default
+      
+      // SVG placeholder dengan ikon berdasarkan kategori
+      const svgs = {
+        web: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="url(#grad)"/>
+                <defs>
+                  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1"/>
+                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1"/>
+                  </linearGradient>
+                </defs>
+                <path d="M50 35 L20 65 L80 65 Z" fill="white" opacity="0.9"/>
+                <rect x="35" y="65" width="30" height="15" fill="white" opacity="0.8"/>
+              </svg>`,
+        iot: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="url(#grad)"/>
+                <defs>
+                  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#10b981;stop-opacity:1"/>
+                    <stop offset="100%" style="stop-color:#059669;stop-opacity:1"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="50" cy="40" r="15" fill="white" opacity="0.9"/>
+                <circle cx="30" cy="65" r="8" fill="white" opacity="0.8"/>
+                <circle cx="50" cy="65" r="8" fill="white" opacity="0.8"/>
+                <circle cx="70" cy="65" r="8" fill="white" opacity="0.8"/>
+              </svg>`,
+        ai: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+               <rect width="100" height="100" fill="url(#grad)"/>
+               <defs>
+                 <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                   <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1"/>
+                   <stop offset="100%" style="stop-color:#d97706;stop-opacity:1"/>
+                 </linearGradient>
+               </defs>
+               <path d="M30 40 L50 20 L70 40 L65 60 L35 60 Z" fill="white" opacity="0.9"/>
+               <circle cx="40" cy="40" r="3" fill="#f59e0b"/>
+               <circle cx="60" cy="40" r="3" fill="#f59e0b"/>
+             </svg>`,
+        default: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="url(#grad)"/>
+                    <defs>
+                      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#6b7280;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#4b5563;stop-opacity:1"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M30 30 L70 30 L70 70 L30 70 Z" fill="white" opacity="0.2" stroke="white" stroke-width="2"/>
+                    <path d="M35 40 L65 40 M35 50 L65 50 M35 60 L65 60" stroke="white" stroke-width="2" opacity="0.8"/>
+                  </svg>`
+      }
+
+      const svg = svgs[project.category] || svgs.default
+      return `data:image/svg+xml;base64,${btoa(svg)}`
     }
   },
   mounted() {
@@ -268,6 +367,7 @@ export default {
   width: 100%;
   height: 200px;
   overflow: hidden;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
 }
 
 .project-image {

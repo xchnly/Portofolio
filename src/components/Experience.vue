@@ -65,9 +65,20 @@ export default {
     return {
       experiences: [
         {
-          position: "Assistant PMC & IT (Dual Role)",
+          position: "CS & Operation + IT Support (Dual Role)",
+          company: "PT SITC JIAXIANG LOGISTICS INDONESIA",
+          period: "Sep 2025 - Present",
+          descriptions: [
+            "I handle customer service and operational tasks, ensuring smooth communication and efficient logistics processes.",
+            "I coordinate with various departments to streamline operations and improve overall service quality.",
+            "In my IT support role, I develop applications aimed at enhancing work efficiency, automating processes, and improving overall performance across departments."
+          ],
+          technologies: ["ERP", "Python", "Microsoft Office", "Vue Js"]
+        },
+        {
+          position: "Assistant PMC + IT Support (Dual Role)",
           company: "PT CHAMPION MATTRESS INDONESIA MANUFACTURING",
-          period: "2023 - Present",
+          period: "Aug 2023 - Sep 2025",
           descriptions: [
             "I am responsible for creating and managing production schedules, coordinating with the production department to ensure timely and efficient manufacturing processes.",
             "I lead a small team that focuses on providing external box labels and shipping marks, ensuring proper identification and packaging for products.",
@@ -78,7 +89,7 @@ export default {
         {
           position: "Tata Usaha & Administrasi",
           company: "YAYASAN HOSANA TEBAS",
-          period: "2021 - 2023",
+          period: "Jan 2021 - May 2023",
           descriptions: [
             "I am responsible for managing and organizing the school’s administrative tasks, ensuring that all processes run smoothly.",
             "I oversee the management of Belajar ID accounts for students and staff, ensuring all accounts are up-to-date and functioning properly.",
