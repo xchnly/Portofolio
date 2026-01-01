@@ -106,7 +106,7 @@ export default {
           id: 3,
           title: "AsmaraPOS | Point of Sales Application",
           description: "RM Nasi Padang Asmara's Point of Sales Application to manage sales and inventory",
-          technologies: ["ESP32", "Blynk", "C++"],
+          technologies: ["Next.Js", "Tailwind Css", "Firebase"],
           imageUrl: "",
           link: "https://asmara-pos.vercel.app/",
           category: "iot"
