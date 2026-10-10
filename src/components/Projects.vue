@@ -1,79 +1,49 @@
 <template>
-  <section class="relative py-20 bg-gray-900 overflow-hidden" id="projects">
-    <!-- Animated Background -->
-    <div class="absolute inset-0 z-0 opacity-10">
-      <div class="circuit-pattern"></div>
-      <div class="floating-dots"></div>
-    </div>
-
-    <div class="container mx-auto px-6 relative z-10">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
-          My Projects
-        </h2>
-        <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto"></div>
-        <p class="text-gray-400 max-w-2xl mx-auto mt-4 text-lg">
-          Showcasing my <span class="text-indigo-300">best work</span> and creative solutions
-        </p>
+  <section class="relative py-24 md:py-32 pixel-section">
+    <div class="container mx-auto px-6">
+      <div class="mb-14" v-reveal>
+        <p class="eyebrow mb-4">Stage 3-1</p>
+        <h2 class="panel-heading text-4xl md:text-5xl">Quest Log</h2>
+        <p class="text-star max-w-2xl mt-4">{{ projects.length }} quests cleared across web, IoT, AI and desktop tooling.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div 
-          v-for="(project, index) in projects" 
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article
+          v-for="(project, index) in projects"
           :key="project.id"
-          class="project-card group"
-          :style="`--delay: ${index * 0.1}s`"
-          @mouseenter="hoverProject(index)"
-          @mouseleave="resetProject(index)"
+          class="mission-card pixel-card"
+          v-reveal="Math.min(index * 60, 480)"
         >
-          <div class="card-inner">
-            <!-- Project Image with Glow Effect -->
-            <div class="image-container">
-              <img 
-                :src="project.imageUrl || getPlaceholderImage(project)" 
-                :alt="project.title"
-                class="project-image"
-              >
-              <div class="image-overlay"></div>
-              <div class="tech-bubbles">
-                <span 
-                  v-for="(tech, techIndex) in project.technologies" 
-                  :key="techIndex"
-                  class="tech-bubble"
-                  :style="`--tech-index: ${techIndex}`"
-                >
-                  {{ tech }}
-                </span>
-              </div>
-            </div>
-
-            <!-- Project Content -->
-            <div class="project-content">
-              <h3 class="project-title">{{ project.title }}</h3>
-              <p class="project-description">{{ project.description }}</p>
-              
-              <div class="project-footer">
-                <a 
-                  :href="project.link" 
-                  class="project-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View Project
-                  <svg class="link-arrow" viewBox="0 0 24 24">
-                    <path d="M5 12H19M12 5L19 12L12 19"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-
-            <!-- Hover Elements -->
-            <div class="project-glow"></div>
-            <div class="project-sparkles">
-              <div v-for="i in 8" :key="i" class="sparkle"></div>
-            </div>
+          <div class="mission-art" :class="`mission-art--${project.category}`">
+            <img
+              v-if="project.imageUrl"
+              :src="project.imageUrl"
+              :alt="`Screenshot of ${project.title}`"
+              class="mission-art-image"
+              loading="lazy"
+            />
+            <i v-else :class="categoryIcon(project.category)"></i>
           </div>
-        </div>
+
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-signal">QUEST {{ String(index + 1).padStart(2, '0') }}</span>
+              <span class="status-badge" :class="`status-badge--${project.status}`">{{ statusLabel(project.status) }}</span>
+            </div>
+
+            <h3 class="font-display text-star mb-3">{{ project.title }}</h3>
+            <p class="text-star text-sm leading-relaxed mb-5">{{ project.description }}</p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span v-for="(tech, i) in project.technologies" :key="i" class="tech-chip">{{ tech }}</span>
+            </div>
+
+            <a v-if="normalizedLink(project.link)" :href="normalizedLink(project.link)" target="_blank" rel="noopener noreferrer" class="mission-link">
+              VIEW PROJECT &#9654;
+            </a>
+            <span v-else class="font-mono text-mist">Internal build &middot; not public</span>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -81,506 +51,99 @@
 
 <script>
 export default {
-  data() {
-    return {
-      projects: [
-        {
-          id: 1,
-          title: "SITC Batam Portal Website",
-          description: "Export Schedule, Import Document Tracking, and Empty Container Pickup System for SITC Batam Indonesia",
-          technologies: ["Next.Js", "Tailwind Css", "Firebase"],
-          imageUrl: "",
-          link: "sitc-batam.com",
-          category: "web"
-        },
-        {
-          id: 2,
-          title: "Finora | Financial Management App",
-          description: "Financial management app to track expenses and income",
-          technologies: ["Next.Js", "Tailwind Css", "Firebase"],
-          imageUrl: "",
-          link: "Finora-wheat.vercel.app",
-          category: "web"
-        },
-        {
-          id: 3,
-          title: "AsmaraPOS | Point of Sales Application",
-          description: "RM Nasi Padang Asmara's Point of Sales Application to manage sales and inventory",
-          technologies: ["Next.Js", "Tailwind Css", "Firebase"],
-          imageUrl: "",
-          link: "https://asmara-pos.vercel.app/",
-          category: "iot"
-        },
-        {
-          id: 4,
-          title: "PETANI | IoT and Automation Plant Waterer",
-          description: "IoT based automatic watering system and automation using ESP32 and Blynk",
-          technologies: ["ESP32", "Blynk", "C++"],
-          imageUrl: "",
-          link: "#",
-          category: "iot"
-        },
-        {
-          id: 5,
-          title: "SNAFH-R1 | Human Tracking Arm Robot",
-          description: "Human tracking arm robot with machine learning and robotic system",
-          technologies: ["Python", "Machine Learning", "Arduino"],
-          imageUrl: "",
-          link: "#",
-          category: "iot"
-        },
-        {
-          id: 6,
-          title: "Label Master V2.0",
-          description: "Manufacturing desktop application for creating box labels",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#",
-          category: "desktop"
-        },
-        {
-          id: 7,
-          title: "Rename Master",
-          description: "Office desktop application for bulk file renaming",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#",
-          category: "desktop"
-        },
-        {
-          id: 8,
-          title: "GroupIN Folders",
-          description: "Office desktop application for bulk folder creation",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#",
-          category: "desktop"
-        },
-        {
-          id: 9,
-          title: "PKWT Maker",
-          description: "Office desktop application for creating employment contracts",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#",
-          category: "desktop"
-        },
-        {
-          id: 10,
-          title: "Cloth Label Maker",
-          description: "Manufacturing desktop application for creating cloth labels",
-          technologies: ["Python"],
-          imageUrl: "",
-          link: "#",
-          category: "desktop"
-        },
-        {
-          id: 11,
-          title: "FrontEnd MidnightPull",
-          description: "Movie review website frontend design",
-          technologies: ["Vue Js", "Tailwind Css"],
-          imageUrl: "",
-          link: "#",
-          category: "web"
-        },
-        {
-          id: 12,
-          title: "Full Stack Novaxin新星系统 (Ongoing)",
-          description: "Production management information system for CMIM",
-          technologies: ["Laravel", "Talwind Css", "MySQL"],
-          imageUrl: "",
-          link: "#",
-          category: "web"
-        },
-        {
-          id: 13,
-          title: "FrontEnd Website HIMATIF",
-          description: "HIMAATIF Uvers website frontend design",
-          technologies: ["Vue Js", "Tailwind Css"],
-          imageUrl: "",
-          link: "#",
-          category: "web"
-        },
-        {
-          id: 14,
-          title: "STACKO | Your Logistic Solutions (Ongoing)",
-          description: "3D Bin Packing and Logistic Management System",
-          technologies: ["Python", "3D-Bin-Packing", "Next Js", "MongoDB"],
-          imageUrl: "",
-          link: "#",
-          category: "web"
-        },
-        {
-          id: 15,
-          title: "NOVARA | CMIM's PMC SYSTEM (Ongoing)",
-          description: "Planner Material Control Information Management System for CMIM",
-          technologies: ["Laravel", "Vite+React", "Tailwind Css", "PostgreeSQL"],
-          imageUrl: "",
-          link: "#",
-          category: "web"
-        },
-      ],
-      hoverStates: []
-    }
+  props: {
+    projects: { type: Array, default: () => [] }
   },
   methods: {
-    hoverProject(index) {
-      this.hoverStates[index] = true
+    categoryIcon(category) {
+      return {
+        web: 'fas fa-diagram-project',
+        iot: 'fas fa-microchip',
+        desktop: 'fas fa-desktop'
+      }[category] || 'fas fa-satellite'
     },
-    resetProject(index) {
-      this.hoverStates[index] = false
+    statusLabel(status) {
+      return { deployed: 'Complete', ongoing: 'In Progress', archived: 'Archived' }[status] || 'Deployed'
     },
-    getPlaceholderImage(project) {
-      // Warna berbeda berdasarkan kategori proyek
-      const colors = {
-        web: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-        iot: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-        ai: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-        desktop: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-        default: 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)'
-      }
-
-      const color = colors[project.category] || colors.default
-      
-      // SVG placeholder dengan ikon berdasarkan kategori
-      const svgs = {
-        web: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100" height="100" fill="url(#grad)"/>
-                <defs>
-                  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1"/>
-                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1"/>
-                  </linearGradient>
-                </defs>
-                <path d="M50 35 L20 65 L80 65 Z" fill="white" opacity="0.9"/>
-                <rect x="35" y="65" width="30" height="15" fill="white" opacity="0.8"/>
-              </svg>`,
-        iot: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100" height="100" fill="url(#grad)"/>
-                <defs>
-                  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#10b981;stop-opacity:1"/>
-                    <stop offset="100%" style="stop-color:#059669;stop-opacity:1"/>
-                  </linearGradient>
-                </defs>
-                <circle cx="50" cy="40" r="15" fill="white" opacity="0.9"/>
-                <circle cx="30" cy="65" r="8" fill="white" opacity="0.8"/>
-                <circle cx="50" cy="65" r="8" fill="white" opacity="0.8"/>
-                <circle cx="70" cy="65" r="8" fill="white" opacity="0.8"/>
-              </svg>`,
-        ai: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-               <rect width="100" height="100" fill="url(#grad)"/>
-               <defs>
-                 <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                   <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1"/>
-                   <stop offset="100%" style="stop-color:#d97706;stop-opacity:1"/>
-                 </linearGradient>
-               </defs>
-               <path d="M30 40 L50 20 L70 40 L65 60 L35 60 Z" fill="white" opacity="0.9"/>
-               <circle cx="40" cy="40" r="3" fill="#f59e0b"/>
-               <circle cx="60" cy="40" r="3" fill="#f59e0b"/>
-             </svg>`,
-        default: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" fill="url(#grad)"/>
-                    <defs>
-                      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#6b7280;stop-opacity:1"/>
-                        <stop offset="100%" style="stop-color:#4b5563;stop-opacity:1"/>
-                      </linearGradient>
-                    </defs>
-                    <path d="M30 30 L70 30 L70 70 L30 70 Z" fill="white" opacity="0.2" stroke="white" stroke-width="2"/>
-                    <path d="M35 40 L65 40 M35 50 L65 50 M35 60 L65 60" stroke="white" stroke-width="2" opacity="0.8"/>
-                  </svg>`
-      }
-
-      const svg = svgs[project.category] || svgs.default
-      return `data:image/svg+xml;base64,${btoa(svg)}`
+    normalizedLink(link) {
+      if (!link || link === '#') return null
+      return link.startsWith('http') ? link : `https://${link}`
     }
-  },
-  mounted() {
-    this.hoverStates = Array(this.projects.length).fill(false)
   }
 }
 </script>
 
-<style>
-/* Background Effects */
-.circuit-pattern {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: grid-move 20s linear infinite;
-  opacity: 0.3;
-}
-
-.floating-dots {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
-}
-
-@keyframes grid-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 50px 50px; }
-}
-
-/* Project Card */
-.project-card {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  animation: card-entrance 0.6s ease-out both;
-  animation-delay: var(--delay);
-}
-
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transform-style: preserve-3d;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+<style scoped>
+.mission-art {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
   overflow: hidden;
+  border-bottom: 4px solid var(--star);
+  background-color: var(--panel);
+  background-image:
+    linear-gradient(45deg, rgba(0, 0, 0, 0.18) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.18) 75%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.18) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.18) 75%);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
 }
 
-.project-card:hover .card-inner {
-  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-  border-color: rgba(99, 102, 241, 0.5);
-}
-
-/* Image Container */
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-}
-
-.project-image {
+.mission-art-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.5s ease;
+  object-position: top;
 }
 
-.project-card:hover .project-image {
-  transform: scale(1.05);
+.mission-art--web { color: #fff1e8; background-color: #1c6fb0; }
+.mission-art--iot { color: #fff1e8; background-color: #00803f; }
+.mission-art--desktop { color: #fff1e8; background-color: #5a3d9a; }
+.mission-art i { text-shadow: 4px 4px 0 var(--ink); }
+
+.status-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  padding: 0.35rem 0.5rem;
+  border: 2px solid var(--star);
+  color: var(--star);
 }
 
-.image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, transparent 50%);
-  opacity: 0.8;
-  transition: all 0.3s ease;
+.status-badge--deployed { color: var(--void); background: var(--signal); }
+.status-badge--ongoing { color: var(--void); background: var(--pink); }
+.status-badge--archived { color: var(--mist); background: var(--line); }
+
+.tech-chip {
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  color: var(--data);
+  background: var(--line);
+  border: 2px solid var(--data);
+  padding: 0.15rem 0.5rem;
 }
 
-.project-card:hover .image-overlay {
-  opacity: 0.6;
-}
-
-/* Tech Bubbles */
-.tech-bubbles {
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0 1rem;
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.project-card:hover .tech-bubbles {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.tech-bubble {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  background: rgba(99, 102, 241, 0.9);
-  color: white;
-  font-size: 0.7rem;
-  font-weight: 500;
-  border-radius: 9999px;
-  transform: translateY(10px);
-  opacity: 0;
-  transition: all 0.3s ease;
-  transition-delay: calc(var(--tech-index) * 0.1s);
-}
-
-.project-card:hover .tech-bubble {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Project Content */
-.project-content {
-  padding: 1.5rem;
-}
-
-.project-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: white;
-  position: relative;
-}
-
-.project-title::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, #6366f1, #ec4899);
-  transition: all 0.3s ease;
-}
-
-.project-card:hover .project-title::after {
-  width: 60px;
-}
-
-.project-description {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-}
-
-/* Project Footer */
-.project-footer {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.project-link {
+.mission-link {
   display: inline-flex;
   align-items: center;
-  color: #6366f1;
-  font-weight: 500;
-  font-size: 0.875rem;
-  transition: all 0.3s ease;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  color: var(--void);
+  background: var(--data);
+  border: 4px solid var(--star);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0.7rem 0.8rem;
 }
 
-.project-link:hover {
-  color: #a855f7;
+.mission-link:hover {
+  background: var(--signal);
+  color: var(--void);
 }
 
-.link-arrow {
-  width: 1rem;
-  height: 1rem;
-  margin-left: 0.25rem;
-  stroke: currentColor;
-  transition: transform 0.3s ease;
-}
-
-.project-link:hover .link-arrow {
-  transform: translateX(3px);
-}
-
-/* Glow Effect */
-.project-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  filter: blur(20px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
-.project-card:hover .project-glow {
-  opacity: 0.5;
-}
-
-/* Sparkles */
-.project-sparkles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.sparkle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background-color: white;
-  border-radius: 50%;
-  filter: blur(1px);
-  opacity: 0;
-  animation: sparkle-flicker 2s ease-in-out infinite;
-}
-
-.project-card:hover .sparkle {
-  opacity: 0.8;
-}
-
-.sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0.1s; }
-.sparkle:nth-child(2) { top: 80%; left: 30%; animation-delay: 0.3s; }
-.sparkle:nth-child(3) { top: 40%; left: 70%; animation-delay: 0.5s; }
-.sparkle:nth-child(4) { top: 60%; left: 10%; animation-delay: 0.7s; }
-.sparkle:nth-child(5) { top: 30%; left: 50%; animation-delay: 0.9s; }
-.sparkle:nth-child(6) { top: 70%; left: 80%; animation-delay: 1.1s; }
-.sparkle:nth-child(7) { top: 10%; left: 40%; animation-delay: 1.3s; }
-.sparkle:nth-child(8) { top: 90%; left: 60%; animation-delay: 1.5s; }
-
-@keyframes sparkle-flicker {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.5); opacity: 0.4; }
-}
-
-/* Card Entrance Animation */
-@keyframes card-entrance {
-  from {
-    opacity: 0;
-    transform: translateY(30px) rotateX(10deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotateX(0);
-  }
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .project-card {
-    animation-delay: calc(var(--delay) * 0.5);
-  }
-  
-  .image-container {
-    height: 180px;
-  }
+.mission-link:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 </style>

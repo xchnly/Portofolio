@@ -12,7 +12,6 @@
     "aos": "^2.3.4",
     "gsap": "^3.13.0",
     "particles.js": "^2.0.0",
-    "simplex-noise": "^4.0.3",
     "three": "^0.176.0",
     "three.js": "^0.77.0",
     "troisjs": "^0.3.4",

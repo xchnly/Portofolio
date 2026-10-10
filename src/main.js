@@ -1,19 +1,13 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import AOS from 'aos'
-import 'aos/dist/aos.css' // Import AOS styles
+import reveal from './directives/reveal'
+import { installGlobalSounds } from './sound'
+import { initTheme } from './theme'
 
-// Create Vue app
+initTheme()
+
 const app = createApp(App)
-
-// Initialize AOS when app is mounted
-app.config.globalProperties.$aos = AOS // Optional: make AOS available globally
-
+app.directive('reveal', reveal)
 app.mount('#app')
-
-// Initialize AOS after app is mounted
-app.config.globalProperties.$aos?.init({
-  duration: 800,
-  once: true
-})
+installGlobalSounds()

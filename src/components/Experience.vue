@@ -1,55 +1,32 @@
 <template>
-  <section class="relative py-20 bg-gray-800 overflow-hidden" id="experience">
-    <!-- Animated Background -->
-    <div class="absolute inset-0 z-0 opacity-10">
-      <div class="circuit-lines"></div>
-      <div class="floating-tech-icons"></div>
-    </div>
-
-    <div class="container mx-auto px-6 relative z-10">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4">
-          <span class="title-text-experience">Work Experience</span>
-        </h2>
-        <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto"></div>
-        <p class="text-gray-400 max-w-2xl mx-auto mt-4 text-lg">
-          My professional journey and <span class="text-indigo-300">career milestones</span>
-        </p>
+  <section class="relative py-24 md:py-32 pixel-section">
+    <div class="container mx-auto px-6">
+      <div class="mb-14" v-reveal>
+        <p class="eyebrow mb-4">Stage 1-2</p>
+        <h2 class="panel-heading text-4xl md:text-5xl">Quest History</h2>
+        <p class="text-mist max-w-2xl mt-4">Career milestones, newest quest first.</p>
       </div>
 
-      <div class="max-w-4xl mx-auto">
-        <div class="timeline">
-          <div 
-            v-for="(exp, index) in experiences" 
-            :key="index"
-            class="timeline-item"
-            :style="`--delay: ${index * 0.1}s`"
-          >
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <div class="experience-card">
-                <div class="card-header">
-                  <h3 class="company">{{ exp.company }}</h3>
-                  <div class="period-badge">{{ exp.period }}</div>
-                </div>
-                <h4 class="position">{{ exp.position }}</h4>
-                
-                <ul class="responsibilities">
-                  <li v-for="(desc, i) in exp.descriptions" :key="i">
-                    <span class="bullet"></span>
-                    <span>{{ desc }}</span>
-                  </li>
-                </ul>
-                
-                <div class="tech-stack">
-                  <span 
-                    v-for="(tech, i) in exp.technologies" 
-                    :key="i"
-                    class="tech-tag"
-                  >
-                    {{ tech }}
-                  </span>
-                </div>
+      <div class="max-w-4xl">
+        <div class="log-timeline">
+          <div v-for="(exp, index) in experiences" :key="index" class="log-entry" v-reveal="index * 140">
+            <div class="log-node"></div>
+            <div class="log-card pixel-card">
+              <div class="flex flex-wrap items-start justify-between gap-3 mb-1">
+                <h3 class="font-display text-star">{{ exp.company }}</h3>
+                <span class="period-tag">{{ exp.period }}</span>
+              </div>
+              <p class="font-mono text-signal mb-4">{{ exp.position }}</p>
+
+              <ul class="space-y-2.5 mb-5">
+                <li v-for="(desc, i) in exp.descriptions" :key="i" class="flex gap-3 text-sm text-star leading-relaxed">
+                  <span class="text-bubble font-mono">&#9654;</span>
+                  <span>{{ desc }}</span>
+                </li>
+              </ul>
+
+              <div class="flex flex-wrap gap-2">
+                <span v-for="(tech, i) in exp.technologies" :key="i" class="tech-chip">{{ tech }}</span>
               </div>
             </div>
           </div>
@@ -65,37 +42,36 @@ export default {
     return {
       experiences: [
         {
-          position: "CS & Operation + IT Support (Dual Role)",
-          company: "PT SITC JIAXIANG LOGISTICS INDONESIA",
-          period: "Sep 2025 - Present",
+          position: "Customer Service & Operations + IT",
+          company: "PT SITC JiaXiang Logistics Indonesia, Batam",
+          period: "Sep 2025 — Present",
           descriptions: [
-            "I handle customer service and operational tasks, ensuring smooth communication and efficient logistics processes.",
-            "I coordinate with various departments to streamline operations and improve overall service quality.",
-            "In my IT support role, I develop applications aimed at enhancing work efficiency, automating processes, and improving overall performance across departments."
+            "Built SITCA, an internal tracking app that cut manual tracking work by up to 80%.",
+            "Process and verify import documents for shipping carriers to keep customs handling accurate and on time.",
+            "Resolve shipment inquiries and coordinate with the operations team.",
+            "Provide on-site IT support: troubleshoot hardware and software, and maintain internal systems."
           ],
-          technologies: ["ERP", "Python", "Microsoft Office", "Vue Js"]
+          technologies: ["Next.js", "Supabase", "Python", "Ms Office"]
         },
         {
-          position: "Assistant PMC + IT Support (Dual Role)",
-          company: "PT CHAMPION MATTRESS INDONESIA MANUFACTURING",
-          period: "Aug 2023 - Sep 2025",
+          position: "Assistant Production Material Control + IT",
+          company: "PT Champion Mattress Indonesia, Batam",
+          period: "Aug 2023 — Sep 2025",
           descriptions: [
-            "I am responsible for creating and managing production schedules, coordinating with the production department to ensure timely and efficient manufacturing processes.",
-            "I lead a small team that focuses on providing external box labels and shipping marks, ensuring proper identification and packaging for products.",
-            "In my IT support role, I develop applications aimed at enhancing work efficiency, automating processes, and improving overall performance across departments."
+            "Planned, scheduled, and tracked material flow across the production line.",
+            "Maintained IT infrastructure and supported staff across departments.",
+            "Built internal tools and reports that streamlined daily operations."
           ],
-          technologies: ["ERP", "Python", "Microsoft Office", "Vue Js"]
+          technologies: ["Python", "Vue.js", "Ms Office"]
         },
         {
-          position: "Tata Usaha & Administrasi",
-          company: "YAYASAN HOSANA TEBAS",
-          period: "Jan 2021 - May 2023",
+          position: "Administration Staff",
+          company: "Yayasan Hosana Tebas",
+          period: "Jan 2022 — Jun 2023",
           descriptions: [
-            "I am responsible for managing and organizing the school’s administrative tasks, ensuring that all processes run smoothly.",
-            "I oversee the management of Belajar ID accounts for students and staff, ensuring all accounts are up-to-date and functioning properly.",
-            "I handle the creation of certificates and other official documents required by the school, ensuring they are accurate and processed in a timely manner."
+            "Managed administrative records, documentation, and daily office operations."
           ],
-          technologies: ["Microsoft Office", "Photoshop", "Local Area Network"]
+          technologies: ["Ms Office", "Photoshop", "Local Area Network"]
         }
       ]
     }
@@ -103,260 +79,71 @@ export default {
 }
 </script>
 
-<style>
-/* Background Effects */
-.circuit-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: grid-move 20s linear infinite;
-}
-
-.floating-tech-icons {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
-}
-
-@keyframes grid-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 40px 40px; }
-}
-
-/* Title Effects */
-.title-text-experience {
+<style scoped>
+.log-timeline {
   position: relative;
-  display: inline-block;
-  color: transparent;
-  -webkit-text-stroke: 1px #6366f1;
+  padding-left: 2.5rem;
 }
 
-.title-text-experience::after {
-  content: 'Work Experience';
+.log-timeline::before {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  color: white;
-  width: 0%;
-  overflow: hidden;
+  top: 6px;
+  left: 6px;
+  bottom: 6px;
+  width: 4px;
+  background: var(--star);
+}
+
+.log-entry {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.log-entry:last-child {
+  margin-bottom: 0;
+}
+
+.log-node {
+  position: absolute;
+  left: -2.5rem;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border: 4px solid var(--star);
+  background: var(--signal);
+}
+
+.log-card {
+  padding: 1.75rem;
+}
+
+.period-tag {
+  font-family: 'VT323', monospace;
+  font-size: 1.15rem;
+  color: var(--void);
+  background: var(--pink);
+  border: 2px solid var(--ink);
+  padding: 0.1rem 0.6rem;
   white-space: nowrap;
-  animation: text-reveal 1.5s ease-in-out forwards;
 }
 
-@keyframes text-reveal {
-  to { width: 100%; }
+.tech-chip {
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  color: var(--data);
+  background: var(--line);
+  border: 2px solid var(--data);
+  padding: 0.15rem 0.5rem;
 }
 
-/* Timeline */
-.timeline {
-  position: relative;
-  padding-left: 50px;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 25px;
-  height: 100%;
-  width: 2px;
-  background: linear-gradient(to bottom, #6366f1, #ec4899);
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 50px;
-  animation: fade-in-up 0.6s ease-out both;
-  animation-delay: var(--delay);
-}
-
-.timeline-dot {
-  position: absolute;
-  left: -50px;
-  top: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #a855f7);
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
-  transition: all 0.3s ease;
-}
-
-.timeline-item:hover .timeline-dot {
-  transform: scale(1.2);
-  box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.3);
-}
-
-.timeline-content {
-  position: relative;
-  padding-left: 30px;
-}
-
-/* Experience Card */
-.experience-card {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 0.75rem;
-  padding: 2rem;
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.timeline-item:hover .experience-card {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  border-color: rgba(99, 102, 241, 0.4);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
-.company {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: white;
-  position: relative;
-}
-
-.company::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, #6366f1, #ec4899);
-  transition: all 0.3s ease;
-}
-
-.timeline-item:hover .company::after {
-  width: 60px;
-}
-
-.period-badge {
-  background: rgba(99, 102, 241, 0.2);
-  color: #a855f7;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.position {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-}
-
-.responsibilities {
-  margin-bottom: 1.5rem;
-}
-
-.responsibilities li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-}
-
-.bullet {
-  position: absolute;
-  left: 0;
-  top: 0.5rem;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #a855f7);
-  transform: scale(0);
-  transition: transform 0.3s ease;
-  transition-delay: calc(var(--delay) + 0.2s);
-}
-
-.timeline-item:hover .bullet {
-  transform: scale(1);
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-tag {
-  background: rgba(99, 102, 241, 0.1);
-  color: #a855f7;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  transform: translateY(5px);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.timeline-item:hover .tech-tag {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.tech-tag:nth-child(1) { transition-delay: calc(var(--delay) + 0.1s); }
-.tech-tag:nth-child(2) { transition-delay: calc(var(--delay) + 0.2s); }
-.tech-tag:nth-child(3) { transition-delay: calc(var(--delay) + 0.3s); }
-.tech-tag:nth-child(4) { transition-delay: calc(var(--delay) + 0.4s); }
-
-/* Animations */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+@media (max-width: 640px) {
+  .log-timeline {
+    padding-left: 1.75rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .timeline {
-    padding-left: 30px;
-  }
-  
-  .timeline::before {
-    left: 15px;
-  }
-  
-  .timeline-dot {
-    left: -30px;
-    width: 16px;
-    height: 16px;
-  }
-  
-  .card-header {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .period-badge {
-    align-self: flex-start;
+  .log-node {
+    left: -1.75rem;
   }
 }
 </style>

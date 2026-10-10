@@ -1,23 +1,27 @@
 <template>
-  <section class="py-20 bg-gray-800" id="achievements">
+  <section class="relative py-24 md:py-32 pixel-section">
     <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold mb-4">My Achievements</h2>
-        <div class="w-20 h-1 bg-indigo-500 mx-auto"></div>
+      <div class="mb-14" v-reveal>
+        <p class="eyebrow mb-4">Stage 2-2</p>
+        <h2 class="panel-heading text-4xl md:text-5xl">Trophy Room</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div v-for="(achievement, index) in achievements" :key="index"
-          class="bg-gray-700 p-6 rounded-lg hover:shadow-lg transition duration-300 hover:transform hover:scale-105">
-          <div class="flex items-center mb-4">
-            <div class="p-3 bg-indigo-500 bg-opacity-20 rounded-full mr-4">
-              <i :class="achievement.icon" class="text-indigo-400 text-xl"></i>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          v-for="(achievement, index) in achievements"
+          :key="index"
+          class="citation-card pixel-card"
+          v-reveal="index * 120"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <div class="citation-icon">
+              <i :class="achievement.icon"></i>
             </div>
-            <h3 class="text-xl font-semibold">{{ achievement.title }}</h3>
+            <h3 class="font-display text-star leading-tight">{{ achievement.title }}</h3>
           </div>
-          <p class="text-gray-300 mb-4">{{ achievement.description }}</p>
-          <div class="text-sm text-indigo-400">
-            {{ achievement.date }} • {{ achievement.organization }}
+          <p class="text-star text-sm leading-relaxed mb-5">{{ achievement.description }}</p>
+          <div class="ach-foot font-mono text-signal pt-3">
+            {{ achievement.date }} &middot; {{ achievement.organization }}
           </div>
         </div>
       </div>
@@ -49,3 +53,26 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.citation-card {
+  padding: 1.75rem;
+}
+
+.citation-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--signal);
+  border: 4px solid var(--star);
+  color: var(--void);
+  font-size: 1.25rem;
+}
+
+.ach-foot {
+  border-top: 4px dashed var(--line);
+}
+</style>

@@ -1,139 +1,91 @@
 <template>
-  <div class="typing-container">
-    <div class="typing-text">
-      <span class="typed-text">{{ typedText }}</span>
-      <span class="cursor">|</span>
-    </div>
-    <div class="floating-elements">
-      <div v-for="(element, index) in floatingElements" 
-           :key="index"
-           class="floating-element"
-           :style="{
-             left: `${element.x}%`,
-             top: `${element.y}%`,
-             width: `${element.size}px`,
-             height: `${element.size}px`,
-             animationDelay: `${index * 0.2}s`
-           }">
-        <i :class="element.icon"></i>
-      </div>
-    </div>
+  <div class="role-readout">
+    <span class="role-prompt">&gt;</span>
+    <span class="role-text">{{ typedText }}</span>
+    <span class="role-cursor" :class="{ 'is-blinking': !isTyping }">_</span>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'RoleReadout',
   props: {
-    texts: {
+    roles: {
       type: Array,
-      default: () => [
-        "Frontend Developer",
-        "UI/UX Designer",
-        "Creative Coder"
-      ]
+      default: () => ['Fullstack Developer', 'IT Support Engineer', 'Automation Tinkerer']
     }
   },
   data() {
     return {
       typedText: '',
-      currentTextIndex: 0,
+      currentIndex: 0,
       isTyping: true,
-      typeSpeed: 100,
-      eraseSpeed: 50,
-      typingDelay: 2000,
-      floatingElements: [
-        { icon: 'fab fa-vuejs', x: 20, y: 30, size: 30 },
-        { icon: 'fab fa-react', x: 80, y: 20, size: 35 },
-        { icon: 'fab fa-js', x: 15, y: 70, size: 40 },
-        { icon: 'fab fa-html5', x: 85, y: 65, size: 25 },
-        { icon: 'fab fa-css3-alt', x: 50, y: 80, size: 30 }
-      ]
+      typeSpeed: 65,
+      eraseSpeed: 35,
+      holdDelay: 1800,
+      timer: null
     }
   },
   mounted() {
     this.typeText()
   },
+  beforeUnmount() {
+    clearTimeout(this.timer)
+  },
   methods: {
     typeText() {
-      const currentText = this.texts[this.currentTextIndex]
-      let i = 0
-      
-      const typing = setInterval(() => {
-        if (i < currentText.length) {
-          this.typedText += currentText.charAt(i)
+      const target = this.roles[this.currentIndex]
+      this.isTyping = true
+      let i = this.typedText.length
+      const step = () => {
+        if (i < target.length) {
+          this.typedText = target.slice(0, i + 1)
           i++
+          this.timer = setTimeout(step, this.typeSpeed)
         } else {
-          clearInterval(typing)
-          setTimeout(() => {
-            this.eraseText()
-          }, this.typingDelay)
+          this.isTyping = false
+          this.timer = setTimeout(this.eraseText, this.holdDelay)
         }
-      }, this.typeSpeed)
+      }
+      step()
     },
     eraseText() {
-      const erasing = setInterval(() => {
+      this.isTyping = true
+      const step = () => {
         if (this.typedText.length > 0) {
-          this.typedText = this.typedText.substring(0, this.typedText.length - 1)
+          this.typedText = this.typedText.slice(0, -1)
+          this.timer = setTimeout(step, this.eraseSpeed)
         } else {
-          clearInterval(erasing)
-          this.currentTextIndex = (this.currentTextIndex + 1) % this.texts.length
-          setTimeout(() => {
-            this.typeText()
-          }, 500)
+          this.currentIndex = (this.currentIndex + 1) % this.roles.length
+          this.timer = setTimeout(this.typeText, 300)
         }
-      }, this.eraseSpeed)
+      }
+      step()
     }
   }
 }
 </script>
 
-<style>
-.typing-container {
-  position: relative;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+<style scoped>
+.role-readout {
+  font-family: 'VT323', monospace;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
-.typing-text {
-  font-size: 2rem;
-  font-weight: 600;
-  color: white;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+.role-prompt {
+  color: var(--data);
 }
 
-.cursor {
-  animation: blink 1s infinite;
+.role-text {
+  color: var(--star);
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.floating-elements {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.floating-element {
-  position: absolute;
-  color: rgba(99, 102, 241, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: float 15s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(10deg); }
+.role-cursor {
+  color: var(--signal);
+  animation: blink 0.9s steps(1) infinite;
 }
 </style>

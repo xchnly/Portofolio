@@ -1,102 +1,55 @@
 <template>
-  <footer class="relative bg-gray-900 border-t border-gray-800 overflow-hidden">
-    <!-- Background Elements -->
-    <div class="absolute inset-0 z-0 opacity-10">
-      <div class="circuit-pattern"></div>
-      <div class="floating-tech-icons"></div>
-    </div>
-
-    <div class="container mx-auto px-6 py-12 relative z-10">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-        <!-- Footer Column 1 -->
-        <div class="footer-col">
-          <h3 class="footer-title">Portfolio</h3>
-          <p class="footer-text">
-            A showcase of my work, skills, and professional journey.
+  <footer class="relative pixel-footer">
+    <div class="container mx-auto px-6 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12" v-reveal>
+        <div>
+          <p class="font-mono text-data uppercase mb-3">Game Master</p>
+          <h3 class="font-display text-signal mb-3">HENDRY</h3>
+          <p class="text-star text-sm leading-relaxed">
+            A quest log of projects, skills and experience — saved in Batam, Indonesia.
           </p>
-          <div class="flex space-x-4 mt-6">
-            <a 
-              v-for="(social, index) in socialLinks" 
-              :key="index"
-              :href="social.url" 
-              target="_blank"
-              rel="noopener noreferrer"
-              class="social-icon"
-              @mouseenter="hoverSocial(index)"
-              @mouseleave="resetSocial(index)"
-            >
+          <div class="flex gap-3 mt-6">
+            <a v-for="social in socialLinks" :key="social.name" :href="social.url" target="_blank" rel="noopener noreferrer" class="footer-social" :aria-label="social.name">
               <i :class="social.icon"></i>
-              <span class="social-tooltip">{{ social.name }}</span>
             </a>
           </div>
+          <a href="/Hendry-CV.pdf" download="Hendry-CV.pdf" class="footer-link inline-flex items-center gap-2 mt-6">
+            <i class="fas fa-download text-signal"></i> Download CV
+          </a>
         </div>
 
-        <!-- Footer Column 2 -->
-        <div class="footer-col">
+        <div>
           <h3 class="footer-title">Quick Links</h3>
-          <ul class="space-y-3">
-            <li v-for="(link, index) in quickLinks" :key="index">
-              <router-link 
-                :to="`#${link.id}`" 
-                class="footer-link"
-                @click="scrollTo(link.id)"
-              >
-                <span class="link-text">{{ link.name }}</span>
-                <span class="link-arrow">→</span>
-              </router-link>
+          <ul class="space-y-2.5">
+            <li v-for="link in quickLinks" :key="link.id">
+              <a href="#" class="footer-link" @click.prevent="scrollTo(link.id)">{{ link.name }}</a>
             </li>
           </ul>
         </div>
 
-        <!-- Footer Column 3 -->
-        <div class="footer-col">
+        <div class="md:col-span-2">
           <h3 class="footer-title">Contact Info</h3>
-          <ul class="space-y-3">
-            <li class="flex items-start">
-              <i class="fas fa-envelope text-indigo-400 mt-1 mr-3"></i>
-              <span class="footer-text">hendryhuang70@gmail.com</span>
+          <ul class="space-y-2.5">
+            <li class="flex items-center gap-3 text-mist text-sm">
+              <i class="fas fa-envelope text-signal w-4"></i> hendryhuang70@gmail.com
             </li>
-            <li class="flex items-start">
-              <i class="fas fa-phone text-indigo-400 mt-1 mr-3"></i>
-              <span class="footer-text">+62 821 5096 2909</span>
+            <li class="flex items-center gap-3 text-mist text-sm">
+              <i class="fas fa-phone text-signal w-4"></i> +62 821 5096 2909
             </li>
-            <li class="flex items-start">
-              <i class="fas fa-map-marker-alt text-indigo-400 mt-1 mr-3"></i>
-              <span class="footer-text">Batam, Indonesia</span>
+            <li class="flex items-center gap-3 text-mist text-sm">
+              <i class="fas fa-location-dot text-signal w-4"></i> Batam, Indonesia
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Footer Bottom -->
-      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-        <p class="footer-text">
-          &copy; {{ new Date().getFullYear() }} Hendry. All rights reserved.
-        </p>
-        
-        <!-- <div class="flex space-x-6 mt-4 md:mt-0">
-          <a 
-            href="#" 
-            class="footer-link"
-          >
-            Privacy Policy
-          </a>
-          <a 
-            href="#" 
-            class="footer-link"
-          >
-            Terms of Service
-          </a>
-        </div> -->
+      <div class="footer-bar mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="font-mono text-star">&copy; {{ year }} HENDRY &middot; ALL RIGHTS RESERVED</p>
+        <p class="press-start font-display">PRESS START TO CONTINUE</p>
       </div>
     </div>
 
-    <!-- Back to Top Button -->
-    <button 
-      class="back-to-top"
-      @click="scrollToTop"
-      :class="{ 'show': showBackToTop }"
-    >
+    <button class="back-to-top" :class="{ 'is-visible': showBackToTop }" @click="scrollToTop" aria-label="Back to top">
       <i class="fas fa-arrow-up"></i>
     </button>
   </footer>
@@ -107,12 +60,9 @@ export default {
   data() {
     return {
       showBackToTop: false,
-      socialHoverStates: [],
       socialLinks: [
-        { name: 'GitHub', icon: 'fab fa-github', url: 'https://github.com' },
-        // { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://linkedin.com' },
-        { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://twitter.com' },
-        // { name: 'Dribbble', icon: 'fab fa-dribbble', url: 'https://dribbble.com' }
+        { name: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/xchnly' },
+        { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://instagram.com/xchnly' },
       ],
       quickLinks: [
         { id: 'home', name: 'Home' },
@@ -122,254 +72,122 @@ export default {
       ]
     }
   },
-  methods: {
-    scrollTo(sectionId) {
-      document.getElementById(sectionId)?.scrollIntoView({
-        behavior: 'smooth'
-      });
-    },
-    scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    },
-    handleScroll() {
-      this.showBackToTop = window.scrollY > 300
-    },
-    hoverSocial(index) {
-      this.socialHoverStates[index] = true
-    },
-    resetSocial(index) {
-      this.socialHoverStates[index] = false
+  computed: {
+    year() {
+      return new Date().getFullYear()
     }
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
-    this.socialHoverStates = Array(this.socialLinks.length).fill(false)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    scrollTo(sectionId) {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+    },
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    handleScroll() {
+      this.showBackToTop = window.scrollY > 300
+    }
   }
 }
 </script>
 
-<style>
-/* Background Effects */
-.circuit-pattern {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: grid-move 20s linear infinite;
+<style scoped>
+.pixel-footer {
+  /* always-dark footer: re-pin the dark palette for everything inside */
+  --void: #1a1c2c;
+  --ink: #0b0c16;
+  --line: #333c57;
+  --star: #fff1e8;
+  --mist: #c2c3c7;
+  --signal: #ffec27;
+  --data: #29adff;
+  --pink: #ff77a8;
+  background: #0b0c16;
+  border-top: 4px solid #fff1e8;
+  color: #fff1e8;
 }
 
-.floating-tech-icons {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 70% 30%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+.footer-bar {
+  border-top: 4px dashed var(--line);
 }
 
-@keyframes grid-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 40px 40px; }
-}
-
-/* Footer Columns */
-.footer-col {
-  position: relative;
-  z-index: 2;
+.press-start {
+  font-size: 0.65rem;
+  color: var(--signal);
+  animation: blink 1.1s steps(1) infinite;
 }
 
 .footer-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 1.5rem;
-  position: relative;
-  display: inline-block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--data);
+  margin-bottom: 1.25rem;
 }
 
-.footer-title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, #6366f1, #ec4899);
-  transition: all 0.3s ease;
+.footer-link {
+  color: var(--star);
+  font-size: 1.05rem;
 }
 
-.footer-col:hover .footer-title::after {
-  width: 60px;
+.footer-link:hover {
+  color: var(--signal);
 }
 
-.footer-text {
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-/* Social Icons */
-.social-icon {
-  position: relative;
+.footer-social {
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(99, 102, 241, 0.1);
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.8);
-  transition: all 0.3s ease;
+  background: var(--void);
+  border: 4px solid var(--star);
+  color: var(--star);
 }
 
-.social-icon i {
-  font-size: 1rem;
+.footer-social:hover {
+  color: var(--void);
+  background: var(--signal);
 }
 
-.social-icon:hover {
-  background: rgba(99, 102, 241, 0.2);
-  color: white;
-  transform: translateY(-3px);
-}
-
-.social-tooltip {
-  position: absolute;
-  top: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(15, 23, 42, 0.9);
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  opacity: 0;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.social-icon:hover .social-tooltip {
-  opacity: 1;
-  top: -40px;
-}
-
-/* Footer Links */
-.footer-link {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.6);
-  transition: all 0.3s ease;
-  padding: 0.25rem 0;
-}
-
-.footer-link:hover {
-  color: white;
-  transform: translateX(5px);
-}
-
-.link-arrow {
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: all 0.3s ease;
-}
-
-.footer-link:hover .link-arrow {
-  opacity: 1;
-  transform: translateX(0);
-  color: #6366f1;
-}
-
-/* Newsletter Form */
-.newsletter-form {
-  display: flex;
-  margin-top: 1rem;
-}
-
-.newsletter-input {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 0.25rem 0 0 0.25rem;
-  transition: all 0.3s ease;
-}
-
-.newsletter-input:focus {
-  outline: none;
-  border-color: rgba(99, 102, 241, 0.5);
-  background: rgba(99, 102, 241, 0.05);
-}
-
-.newsletter-button {
-  background: linear-gradient(135deg, #6366f1, #a855f7);
-  color: white;
-  border: none;
-  padding: 0 1.25rem;
-  border-radius: 0 0.25rem 0.25rem 0;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.newsletter-button:hover {
-  background: linear-gradient(135deg, #a855f7, #ec4899);
-  transform: translateY(-1px);
-}
-
-/* Back to Top Button */
 .back-to-top {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #6366f1, #a855f7);
-  color: white;
-  border: none;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  background: var(--signal);
+  border: 4px solid var(--star);
+  box-shadow: 4px 4px 0 var(--ink);
+  color: var(--void);
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-  z-index: 100;
-  box-shadow: 0 5px 20px rgba(99, 102, 241, 0.3);
+  pointer-events: none;
+  z-index: 40;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
 }
 
-.back-to-top.show {
+.back-to-top.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .back-to-top:hover {
-  background: linear-gradient(135deg, #a855f7, #ec4899);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  background: var(--pink);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .footer-col {
-    margin-bottom: 2rem;
-  }
-  
-  .footer-title::after {
-    width: 40px !important;
-  }
+.back-to-top:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 </style>

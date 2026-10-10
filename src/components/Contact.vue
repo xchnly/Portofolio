@@ -1,120 +1,64 @@
 <template>
-  <section class="py-20 bg-gray-900">
+  <section class="relative py-24 md:py-32 pixel-section">
     <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
-        <div class="w-20 h-1 bg-indigo-500 mx-auto"></div>
+      <div class="mb-14" v-reveal>
+        <p class="eyebrow mb-4">Final Stage</p>
+        <h2 class="panel-heading text-4xl md:text-5xl">Save Game / Multiplayer</h2>
       </div>
 
-      <div class="max-w-4xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
-            <div class="space-y-4">
-              <div class="flex items-start">
-                <div class="text-indigo-400 mr-4 mt-1">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                    </path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-lg font-medium">Email</h4>
-                  <p class="text-gray-400">hendryhuang70@gmail.com</p>
-                </div>
-              </div>
-
-              <div class="flex items-start">
-                <div class="text-indigo-400 mr-4 mt-1">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                    </path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-lg font-medium">Phone</h4>
-                  <p class="text-gray-400">+62 821 5096 2909</p>
-                </div>
-              </div>
-
-              <div class="flex items-start">
-                <div class="text-indigo-400 mr-4 mt-1">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-lg font-medium">Location</h4>
-                  <p class="text-gray-400">Batam, Indonesia</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-8">
-              <h4 class="text-lg font-medium mb-4">Follow Me</h4>
-              <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-indigo-400 transition duration-300">
-                  <i class="fab fa-github text-2xl"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-indigo-400 transition duration-300">
-                  <i class="fab fa-instagram text-2xl"></i>
-                </a>
+      <div class="max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-14">
+        <div v-reveal>
+          <h3 class="font-display text-signal mb-6">&gt; SELECT PLAYER 2</h3>
+          <div class="space-y-5">
+            <div v-for="item in contactItems" :key="item.label" class="flex items-start gap-4">
+              <div class="contact-icon"><i :class="item.icon"></i></div>
+              <div>
+                <p class="font-mono text-data uppercase">{{ item.label }}</p>
+                <p class="text-star">{{ item.value }}</p>
               </div>
             </div>
           </div>
 
-          <!-- Formulir -->
-          <div>
-            <h3 class="text-2xl font-semibold mb-6">Send Me a Message</h3>
-            <form action="https://formspree.io/f/mkgzppon" method="POST" class="space-y-4"
-              @submit.prevent="handleSubmit">
-              <div>
-                <label class="block text-gray-300 mb-2">Your Name</label>
-                <input type="text" name="name"
-                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  required>
-              </div>
-
-              <div>
-                <label class="block text-gray-300 mb-2">Your Email</label>
-                <input type="email" name="email"
-                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  required>
-              </div>
-
-              <div>
-                <label class="block text-gray-300 mb-2">Subject</label>
-                <input type="text" name="subject"
-                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  required>
-              </div>
-
-              <div>
-                <label class="block text-gray-300 mb-2">Message</label>
-                <textarea name="message"
-                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  rows="4" required></textarea>
-              </div>
-
-              <button type="submit"
-                class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium transition duration-300"
-                :disabled="isSubmitting">
-                <span v-if="!isSubmitting">Send Message</span>
-                <span v-else>Sending...</span>
-              </button>
-
-              <div v-if="submitStatus" class="mt-4 p-4 rounded-lg"
-                :class="submitStatus === 'success' ? 'bg-green-500' : 'bg-red-500'">
-                <p v-if="submitStatus === 'success'">Message sent successfully!</p>
-                <p v-else>Failed to send message. Please try again.</p>
-              </div>
-            </form>
+          <div class="mt-10">
+            <p class="font-mono text-data uppercase mb-4">Follow</p>
+            <div class="flex gap-3">
+              <a v-for="social in socials" :key="social.name" :href="social.url" target="_blank" rel="noopener noreferrer" class="social-link" :aria-label="social.name">
+                <i :class="social.icon"></i>
+              </a>
+            </div>
           </div>
+        </div>
+
+        <div v-reveal="150">
+          <h3 class="font-display text-signal mb-6">&gt; NEW MESSAGE</h3>
+          <form action="https://formspree.io/f/mkgzppon" method="POST" class="space-y-4" @submit.prevent="handleSubmit">
+            <div>
+              <label class="field-label" for="contact-name">Your Name</label>
+              <input id="contact-name" type="text" name="name" class="field-input" required />
+            </div>
+            <div>
+              <label class="field-label" for="contact-email">Your Email</label>
+              <input id="contact-email" type="email" name="email" class="field-input" required />
+            </div>
+            <div>
+              <label class="field-label" for="contact-subject">Subject</label>
+              <input id="contact-subject" type="text" name="subject" class="field-input" required />
+            </div>
+            <div>
+              <label class="field-label" for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" class="field-input" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="pixel-btn pixel-btn--signal w-full sm:w-auto" :disabled="isSubmitting">
+              <span v-if="!isSubmitting">&#9654; Save &amp; Send</span>
+              <span v-else>Saving&hellip;</span>
+            </button>
+
+            <div v-if="submitStatus" class="font-mono px-4 py-3 border-4" :class="submitStatus === 'success' ? 'border-data text-data' : 'border-bubble text-bubble'">
+              <span v-if="submitStatus === 'success'">GAME SAVED! Message sent successfully.</span>
+              <span v-else>GAME OVER. Message failed, please try again.</span>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -126,7 +70,16 @@ export default {
   data() {
     return {
       isSubmitting: false,
-      submitStatus: null
+      submitStatus: null,
+      contactItems: [
+        { label: 'Email', value: 'hendryhuang70@gmail.com', icon: 'fas fa-envelope' },
+        { label: 'Phone', value: '+62 821 5096 2909', icon: 'fas fa-phone' },
+        { label: 'Location', value: 'Batam, Indonesia', icon: 'fas fa-location-dot' },
+      ],
+      socials: [
+        { name: 'GitHub', icon: 'fab fa-github', url: 'https://github.com/xchnly' },
+        { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://instagram.com/xchnly' },
+      ]
     }
   },
   methods: {
@@ -141,14 +94,12 @@ export default {
         const response = await fetch(form.action, {
           method: 'POST',
           body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
+          headers: { 'Accept': 'application/json' }
         });
 
         if (response.ok) {
           this.submitStatus = 'success';
-          form.reset(); // Reset form after successful submission
+          form.reset();
         } else {
           this.submitStatus = 'error';
         }
@@ -162,3 +113,64 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--signal);
+  border: 4px solid var(--star);
+  color: var(--void);
+}
+
+.social-link {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--void);
+  border: 4px solid var(--star);
+  box-shadow: 4px 4px 0 var(--ink);
+  color: var(--star);
+  font-size: 1.2rem;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+
+.social-link:hover {
+  color: var(--void);
+  background: var(--signal);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.field-label {
+  display: block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: var(--data);
+  margin-bottom: 0.6rem;
+}
+
+.field-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  background: var(--ink);
+  border: 4px solid var(--star);
+  color: var(--star);
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.15rem;
+  border-radius: 0;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: var(--signal);
+  box-shadow: 4px 4px 0 var(--pink);
+}
+</style>
