@@ -22,7 +22,7 @@
               <span class="blink">&#9654;</span> Start Game
             </a>
             <a href="#contact" class="pixel-btn" @click.prevent="scrollTo('contact')">2P &middot; Contact</a>
-            <a href="/Hendry-CV.pdf" download="Hendry-CV.pdf" class="pixel-btn pixel-btn--data">
+            <a href="/Hendry%20%E2%80%94%20CV%20(ATS).pdf" download="Hendry-CV.pdf" class="pixel-btn pixel-btn--data">
               <i class="fas fa-download"></i> Download CV
             </a>
           </div>

@@ -13,7 +13,7 @@
               <i :class="social.icon"></i>
             </a>
           </div>
-          <a href="/Hendry-CV.pdf" download="Hendry-CV.pdf" class="footer-link inline-flex items-center gap-2 mt-6">
+          <a href="/Hendry%20%E2%80%94%20CV%20(ATS).pdf" download="Hendry-CV.pdf" class="footer-link inline-flex items-center gap-2 mt-6">
             <i class="fas fa-download text-signal"></i> Download CV
           </a>
         </div>
