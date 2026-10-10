@@ -1,8 +1,8 @@
 <template>
   <header class="site-header fixed top-0 w-full z-50">
-    <div class="container mx-auto px-6">
-      <div class="flex items-center justify-between h-16 md:h-[4.5rem] gap-4">
-        <a href="#home" class="logo-link" @click.prevent="scrollTo('home')">&#9668; PLAYER_01 &#9658;</a>
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16 md:h-[4.5rem] gap-2 sm:gap-4">
+        <a href="#home" class="logo-link" @click.prevent="scrollTo('home')">&#9668;<span class="logo-full"> PLAYER_01 </span><span class="logo-short">P1</span>&#9658;</a>
 
         <nav class="hidden md:flex items-center gap-1" aria-label="Main menu">
           <a
@@ -16,12 +16,14 @@
           >{{ activeSection === item.id ? '▶ ' : '' }}{{ item.name }}</a>
         </nav>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-3">
           <button class="snd-btn" :aria-label="theme.mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'" @click="toggleTheme">
-            {{ theme.mode === 'light' ? 'DARK' : 'LIGHT' }}
+            <span class="btn-icon" aria-hidden="true">{{ theme.mode === 'light' ? '☾' : '☀' }}</span>
+            <span class="btn-text">{{ theme.mode === 'light' ? 'DARK' : 'LIGHT' }}</span>
           </button>
           <button class="snd-btn" :aria-pressed="muted" aria-label="Toggle sound" @click="toggleMute">
-            SND: {{ muted ? 'OFF' : 'ON' }}
+            <span class="btn-icon" aria-hidden="true">{{ muted ? '♪x' : '♪' }}</span>
+            <span class="btn-text">SND: {{ muted ? 'OFF' : 'ON' }}</span>
           </button>
           <button class="md:hidden burger" @click="mobileOpen = !mobileOpen" aria-label="Toggle navigation menu" :aria-expanded="mobileOpen">
             {{ mobileOpen ? 'X' : 'MENU' }}
@@ -32,7 +34,7 @@
 
     <transition name="drop">
       <div v-if="mobileOpen" class="md:hidden mobile-menu">
-        <nav class="flex flex-col px-6 py-2" aria-label="Mobile menu">
+        <nav class="flex flex-col px-4 sm:px-6 py-2" aria-label="Mobile menu">
           <a
             v-for="item in navItems"
             :key="item.id"
@@ -202,5 +204,38 @@ export default {
 .drop-enter-from,
 .drop-leave-to {
   opacity: 0;
+}
+
+.logo-short,
+.btn-icon {
+  display: none;
+}
+
+.mobile-menu {
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+/* narrow phones: shorter logo and icon-only buttons so the bar never overflows */
+@media (max-width: 639px) {
+  .logo-link {
+    font-size: 0.65rem;
+  }
+  .logo-full,
+  .btn-text {
+    display: none;
+  }
+  .logo-short,
+  .btn-icon {
+    display: inline;
+  }
+  .snd-btn,
+  .burger {
+    font-size: 0.6rem;
+    padding: 0.5rem 0.55rem;
+    min-width: 40px;
+    min-height: 40px;
+    border-width: 3px;
+  }
 }
 </style>
