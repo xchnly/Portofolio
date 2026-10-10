@@ -11,7 +11,7 @@
       <About id="about" />
       <Experience id="experience" />
       <Education id="education" />
-      <Skills id="skills" />
+      <Skills id="skills" :projects="projects" />
       <Projects id="projects" :projects="projects" />
       <Achievements id="achievements" />
       <Contact id="contact" />
