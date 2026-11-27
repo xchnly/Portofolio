@@ -68,6 +68,7 @@ export default {
         { id: 'home', name: 'Home' },
         { id: 'about', name: 'About' },
         { id: 'projects', name: 'Projects' },
+        { id: 'reels', name: 'Reels' },
         { id: 'contact', name: 'Contact' }
       ]
     }

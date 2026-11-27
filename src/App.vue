@@ -13,6 +13,7 @@
       <Education id="education" />
       <Skills id="skills" :projects="projects" />
       <Projects id="projects" :projects="projects" />
+      <Reels id="reels" />
       <Achievements id="achievements" />
       <Contact id="contact" />
       <Footer />
@@ -30,6 +31,7 @@ import Experience from './components/Experience.vue'
 import Education from './components/Education.vue'
 import Skills from './components/Skills.vue'
 import Projects from './components/Projects.vue'
+import Reels from './components/Reels.vue'
 import Achievements from './components/Achievements.vue'
 import Contact from './components/Contact.vue'
 import Footer from './components/Footer.vue'
@@ -45,6 +47,7 @@ export default {
     Education,
     Skills,
     Projects,
+    Reels,
     Achievements,
     Contact,
     Footer
@@ -52,6 +55,26 @@ export default {
   data() {
     return {
       projects: [
+        {
+          id: 17,
+          title: "SAKTI — Seminar & Attendance Platform",
+          description: "Web and mobile platform for UVERS seminars: event registration, attendance with a QR code that rotates every 5 seconds, and verifiable certificates for student activity points.",
+          technologies: ["Next.js", "TypeScript", "Flutter", "PostgreSQL", "Supabase"],
+          imageUrl: "/projects/sakti.png",
+          link: "https://sakti-uvers.vercel.app",
+          category: "web",
+          status: "ongoing"
+        },
+        {
+          id: 18,
+          title: "MeshLokal — Offline Mesh Network",
+          description: "Communication without internet or router: an Android app with end-to-end encrypted chat and SOS, relayed across phones and ESP32-CAM nodes, plus a laptop dashboard for the cameras.",
+          technologies: ["Flutter", "ESP32-CAM", "C++", "Python", "Flask"],
+          imageUrl: "",
+          link: "https://github.com/xchnly/TRIPLE-ESP-CAM",
+          category: "iot",
+          status: "ongoing"
+        },
         {
           id: 15,
           title: "Guava Disease Segmentation — Thesis",
